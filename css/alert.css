@@ -1,0 +1,81 @@
+
+/* Phần thông báo lỗi */
+.alert-box-error {
+    position: absolute;
+    top: 22px;
+    left: 26px;
+    width: 100%;
+    max-width: 299px;
+}
+
+.alert-box-error .alert {
+    padding: 16px;
+    background-color: #FFE5E8;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    color: #000000;
+}
+
+.icon-error {
+    width: 13.33px;
+    height: 13.33px;
+}
+
+.btn-close-custom {
+    background-color: #FFFFFF;
+    opacity: 35%;
+    border: none;
+    border-radius: 100px;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 4px;
+}
+
+.btn-close-custom:hover {
+    background-color:#bdbdbd;
+}
+
+.btn-close-custom img {
+    width: 9.33px;
+    height: 9.33px;
+}
+
+.alert strong {
+    font-size: 16px;
+    color: #11151F;
+    font-weight: 500;
+    line-height: 100%;
+}
+
+.error-messages {
+    padding-left: 24px;
+    line-height: 150%;
+}
+
+/* Phần thông báo thành công */
+.alert-box-successful {
+    position: absolute;
+    top: 22px;
+    left: 26px;
+    width: 100%;
+    max-width: 299px;
+}
+
+.alert-box-successful .alert {
+    padding: 16px;
+    background-color: #E5FFF0;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    color: #000000;
+    gap: 8px;
+}
+
+img.icon-successful {
+    width: 20px;
+    height: 20px;
+}

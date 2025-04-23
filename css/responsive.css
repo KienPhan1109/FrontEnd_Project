@@ -1,0 +1,29 @@
+@media (max-width: 576px) {
+    .sidebar {
+        display: none;
+    }
+
+    .dashboard .header .logo{
+        max-width: 112px;
+        width: 100%;
+    }
+
+    .dashboard .heading1 {
+        font-size: 23px;
+        line-height: 31.66px;
+    }
+
+    .dashboard .card {
+        width: 230px;
+    }
+
+    .dashboard .navbar-toggler {
+        display: block !important;
+    }
+
+    .dashboard .edit {
+        width: 140px;
+        font-size: 12px;
+        left: 15px;
+    }
+}
