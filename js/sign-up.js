@@ -40,8 +40,9 @@ function showSuccess(message) {
 }
 
 signUpBtn.addEventListener("click", () => {
-    // Lấy danh sách người dùng hiện tại từ localStorage
-    let users = JSON.parse(localStorage.getItem("users")) || [];
+    // Lấy toàn bộ dữ liệu từ localStorage
+    let data = JSON.parse(localStorage.getItem("data")) || {users: []};
+    let users = data.users; // Truy xuất người dùng từ data
 
     const name = document.getElementById("name").value.trim();
     const email = document.getElementById("email").value.trim();
@@ -80,11 +81,28 @@ signUpBtn.addEventListener("click", () => {
         return;
     }
     
-    // Thêm người dùng mới
-    users.push({ name, email, password });
+    // Tính ID mới tăng dần
+    let newId = 1;
+    if (users.length > 0) {
+        const lastUser = users[users.length - 1];
+        newId = lastUser.id + 1;
+    }
 
-    // Lưu lại vào localStorage
-    localStorage.setItem("users", JSON.stringify(users));
+    // Tạo user mới và thêm vào danh sách users
+    const newUser = {
+        id: newId,
+        username: name,
+        email,
+        password,
+        created_at: new Date().toISOString(),
+        boards: []
+    };
+
+    users.push(newUser);
+    data.users = users;
+
+    // Lưu lại toàn bộ object data
+    localStorage.setItem("data", JSON.stringify(data));
 
     showSuccess("Đăng ký thành công");
     setTimeout(() => {

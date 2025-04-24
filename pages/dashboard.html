@@ -119,195 +119,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="container-board d-flex flex-wrap gap-3">
-                        <div class="card text-bg-dark">
-                            <img src="../assets/images/board1.png" class="card-img" alt="...">
-                            <div class="card-img-overlay">
-                                <h5 class="card-title">Board Title 01</h5>
-                                <div class="none">
-                                    <button type="button" class="edit btn btn-modal" data-bs-toggle="modal" data-bs-target="#exampleModalEdit"><i class="fa-regular fa-pen"></i>Edit this board</button>
-                                    <button type="button" class="delete btn btn-modal" data-bs-toggle="modal" data-bs-target="#exampleModalDelete"><i class="fa-solid fa-trash"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card text-bg-dark">
-                            <img src="../assets/images/board2.png" class="card-img" alt="...">
-                            <div class="card-img-overlay">
-                                <h5 class="card-title">Board Title 02</h5>
-                                <div class="none">
-                                    <button type="button" class="edit btn btn-modal" data-bs-toggle="modal" data-bs-target="#exampleModalEdit"><i class="fa-regular fa-pen"></i>Edit this board</button>
-                                    <button type="button" class="delete btn btn-modal" data-bs-toggle="modal" data-bs-target="#exampleModalDelete"><i class="fa-solid fa-trash"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card text-bg-dark">
-                            <img src="../assets/images/board3.png" class="card-img" alt="...">
-                            <div class="card-img-overlay">
-                                <h5 class="card-title">Board Title 03</h5>
-                                <div class="none">
-                                    <button type="button" class="edit btn btn-modal" data-bs-toggle="modal" data-bs-target="#exampleModalEdit"><i class="fa-regular fa-pen"></i>Edit this board</button>
-                                    <button type="button" class="delete btn btn-modal" data-bs-toggle="modal" data-bs-target="#exampleModalDelete"><i class="fa-solid fa-trash"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card text-bg-dark">
-                            <img src="../assets/images/board4.png" class="card-img" alt="...">
-                            <div class="card-img-overlay">
-                                <h5 class="card-title">Board Title 04</h5>
-                                <div class="none">
-                                    <button type="button" class="edit btn btn-modal" data-bs-toggle="modal" data-bs-target="#exampleModalEdit"><i class="fa-regular fa-pen"></i>Edit this board</button>
-                                    <button type="button" class="delete btn btn-modal" data-bs-toggle="modal" data-bs-target="#exampleModalDelete"><i class="fa-solid fa-trash"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Modal thêm -->
-                        <div class="card d-flex justify-content-center create align-items-center">
-                            <button type="button" class="btn btn-modal" data-bs-toggle="modal" data-bs-target="#exampleModalCreate">
-                                Create new board
-                            </button>
-                            <div class="modal fade" id="exampleModalCreate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Create board</h1>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="title-create">
-                                                <div class="background">
-                                                    <div class="title-text">Background</div>
-                                                    <div class="d-flex justify-content-center align-items-center gap-2">
-                                                        <div class="position-relative">
-                                                            <img src="../assets/images/board2.png" alt="">
-                                                            <i class="fa-solid fa-circle-check"></i>
-                                                        </div>
-                                                        <div class="position-relative">
-                                                            <img src="../assets/images/board1.png" alt="">
-                                                            <i class="fa-solid fa-circle-check"></i>
-                                                        </div>
-                                                        <div class="position-relative">
-                                                            <img src="../assets/images/board4.png" alt="">
-                                                            <i class="fa-solid fa-circle-check"></i>
-                                                        </div>
-                                                        <div class="position-relative">
-                                                            <img src="../assets/images/board3.png" alt="">
-                                                            <i class="fa-solid fa-circle-check"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="color">
-                                                    <div class="title-text">Color</div>
-                                                    <div class="d-flex justify-content-center align-items-center gap-2">
-                                                        <div class="box-color d-flex justify-content-center align-items-center" id="color1"><i class="fa-solid fa-circle-check"></i></div>
-                                                        <div class="box-color d-flex justify-content-center align-items-center" id="color2"><i class="fa-solid fa-circle-check"></i></div>
-                                                        <div class="box-color d-flex justify-content-center align-items-center" id="color3"><i class="fa-solid fa-circle-check"></i></div>
-                                                        <div class="box-color d-flex justify-content-center align-items-center" id="color4"><i class="fa-solid fa-circle-check"></i></div>
-                                                        <div class="box-color d-flex justify-content-center align-items-center" id="color5"><i class="fa-solid fa-circle-check"></i></div>
-                                                        <div class="box-color d-flex justify-content-center align-items-center" id="color6"><i class="fa-solid fa-circle-check"></i></div>
-                                                    </div>
-                                                </div>
-                                                <div class="board-title">
-                                                    <div class="title-text">Board title <span class="red">*</span></div>
-                                                    <div class="d-flex justify-content-center align-items-center gap-2">
-                                                        <form>
-                                                            <input type="text" class="form-control" id="board-title" placeholder="E.g. Shopping list for birthday...">
-                                                            <div id="board-title-valid" class="form-text">👋 Please provide a valid board title.</div>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-outline-primary">Create</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Modal sửa -->
-                    <div class="modal fade" id="exampleModalEdit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Update board</h1>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="title-create">
-                                        <div class="background">
-                                            <div class="title-text">Background</div>
-                                            <div class="d-flex justify-content-center align-items-center gap-2">
-                                                <div class="position-relative">
-                                                    <img src="../assets/images/board2.png" alt="">
-                                                    <i class="fa-solid fa-circle-check"></i>
-                                                </div>
-                                                <div class="position-relative">
-                                                    <img src="../assets/images/board1.png" alt="">
-                                                    <i class="fa-solid fa-circle-check"></i>
-                                                </div>
-                                                <div class="position-relative">
-                                                    <img src="../assets/images/board4.png" alt="">
-                                                    <i class="fa-solid fa-circle-check"></i>
-                                                </div>
-                                                <div class="position-relative">
-                                                    <img src="../assets/images/board3.png" alt="">
-                                                    <i class="fa-solid fa-circle-check"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="color">
-                                            <div class="title-text">Color</div>
-                                            <div class="d-flex justify-content-center align-items-center gap-2">
-                                                <div class="box-color d-flex justify-content-center align-items-center" id="color1"><i class="fa-solid fa-circle-check"></i></div>
-                                                <div class="box-color d-flex justify-content-center align-items-center" id="color2"><i class="fa-solid fa-circle-check"></i></div>
-                                                <div class="box-color d-flex justify-content-center align-items-center" id="color3"><i class="fa-solid fa-circle-check"></i></div>
-                                                <div class="box-color d-flex justify-content-center align-items-center" id="color4"><i class="fa-solid fa-circle-check"></i></div>
-                                                <div class="box-color d-flex justify-content-center align-items-center" id="color5"><i class="fa-solid fa-circle-check"></i></div>
-                                                <div class="box-color d-flex justify-content-center align-items-center" id="color6"><i class="fa-solid fa-circle-check"></i></div>
-                                            </div>
-                                        </div>
-                                        <div class="board-title">
-                                            <div class="title-text">Board title <span class="red">*</span></div>
-                                            <div class="d-flex justify-content-center align-items-center gap-2">
-                                                <form>
-                                                    <input type="text" class="form-control" id="board-title" placeholder="Board 01...">
-                                                    <div id="board-title-valid" class="form-text">👋 Please provide a valid board title.</div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-outline-danger btn-cancel" data-bs-dismiss="modal">Cancel</button>
-                                    <button type="button" class="btn btn-outline-primary btn-save">Save</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Modal thông báo xóa -->
-                    <div class="modal fade" id="exampleModalDelete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content">
-                                <div class="modal-body d-flex justify-content-center align-items-center flex-column">
-                                    <div class="modal-icon">
-                                        <i class="fa-light fa-circle-exclamation"></i>
-                                    </div>
-                                    <div class="delete-text">
-                                        Are your sure?
-                                    </div>
-                                    <div class="delete-error">
-                                        You won't be able to revert this!
-                                    </div>
-                                    <div class="delete-container-button d-flex justify-content-center align-items-center gap-2">
-                                        <button type="button" class="btn btn-primary btn-save">Yes, delete it!</button>
-                                        <button type="button" class="btn btn-danger btn-cancel" data-bs-dismiss="modal">Cancel</button>
-                                    </div>
-                                </div>
-                                
-                            </div>
-                        </div>
+                    <div class="container-board d-flex flex-wrap gap-3" id="board-container">
+                        <!-- Toàn bộ Board dữ liệu từ Js -->
                     </div>
                 </div>
                 <div class="workspaces">
@@ -317,7 +130,18 @@
                             Starred Boards
                         </div>
                     </div>
-                    <div class="container-board d-flex flex-wrap gap-3">
+                    <div class="container-board d-flex flex-wrap gap-3" id="starred-container">
+                        <!-- Toàn bộ Board yêu thích dữ liệu từ Js -->
+                    </div>
+                </div>
+                <div class="workspaces">
+                    <div class="heading1">
+                        <div>
+                            <i class="fa-regular fa-rectangle-xmark"></i>
+                            Closed Boards
+                        </div>
+                    </div>
+                    <div class="container-board d-flex flex-wrap gap-3" id="closed-container">
                         <div class="card text-bg-dark">
                             <img src="../assets/images/board5.png" class="card-img" alt="...">
                             <div class="card-img-overlay">
@@ -330,6 +154,143 @@
                                 <h5 class="card-title starred-text">Important Board 02</h5>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal thêm -->
+    <div class="modal fade" id="exampleModalCreate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Create board</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="title-create">
+                        <div class="background">
+                            <div class="title-text">Background</div>
+                            <div class="d-flex justify-content-center align-items-center gap-2">
+                                <div class="position-relative" id="img1">
+                                    <img src="../assets/images/board2.png" alt="">
+                                    <i class="fa-solid fa-circle-check"></i>
+                                </div>
+                                <div class="position-relative" id="img2">
+                                    <img src="../assets/images/board1.png" alt="">
+                                </div>
+                                <div class="position-relative" id="img3">
+                                    <img src="../assets/images/board4.png" alt="">
+                                </div>
+                                <div class="position-relative" id="img4">
+                                    <img src="../assets/images/board3.png" alt="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="color">
+                            <div class="title-text">Color</div>
+                            <div class="d-flex justify-content-center align-items-center gap-2">
+                                <div class="box-color d-flex justify-content-center align-items-center" id="color1"><i class="fa-solid fa-circle-check"></i></div>
+                                <div class="box-color d-flex justify-content-center align-items-center" id="color2"><i class="fa-solid fa-circle-check d-none"></i></div>
+                                <div class="box-color d-flex justify-content-center align-items-center" id="color3"><i class="fa-solid fa-circle-check d-none"></i></div>
+                                <div class="box-color d-flex justify-content-center align-items-center" id="color4"><i class="fa-solid fa-circle-check d-none"></i></div>
+                                <div class="box-color d-flex justify-content-center align-items-center" id="color5"><i class="fa-solid fa-circle-check d-none"></i></div>
+                                <div class="box-color d-flex justify-content-center align-items-center" id="color6"><i class="fa-solid fa-circle-check d-none"></i></div>
+                            </div>
+                        </div>
+                        <div class="board-title">
+                            <div class="title-text">Board title <span class="red">*</span></div>
+                            <div class="d-flex justify-content-center align-items-center gap-2">
+                                <form>
+                                    <input type="text" class="form-control" id="board-title" placeholder="E.g. Shopping list for birthday...">
+                                    <div id="board-title-valid" class="form-text">👋 Please provide a valid board title.</div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-outline-primary">Create</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal sửa -->
+    <div class="modal fade" id="exampleModalEdit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Update board</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="title-create">
+                        <div class="background">
+                            <div class="title-text">Background</div>
+                            <div class="d-flex justify-content-center align-items-center gap-2">
+                                <div class="position-relative">
+                                    <img src="../assets/images/board2.png" alt="">
+                                    <i class="fa-solid fa-circle-check"></i>
+                                </div>
+                                <div class="position-relative">
+                                    <img src="../assets/images/board1.png" alt="">
+                                </div>
+                                <div class="position-relative">
+                                    <img src="../assets/images/board4.png" alt="">
+                                </div>
+                                <div class="position-relative">
+                                    <img src="../assets/images/board3.png" alt="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="color">
+                            <div class="title-text">Color</div>
+                            <div class="d-flex justify-content-center align-items-center gap-2">
+                                <div class="box-color d-flex justify-content-center align-items-center" id="color1"><i class="fa-solid fa-circle-check"></i></div>
+                                <div class="box-color d-flex justify-content-center align-items-center" id="color2"></div>
+                                <div class="box-color d-flex justify-content-center align-items-center" id="color3"></div>
+                                <div class="box-color d-flex justify-content-center align-items-center" id="color4"></div>
+                                <div class="box-color d-flex justify-content-center align-items-center" id="color5"></div>
+                                <div class="box-color d-flex justify-content-center align-items-center" id="color6"></div>
+                            </div>
+                        </div>
+                        <div class="board-title">
+                            <div class="title-text">Board title <span class="red">*</span></div>
+                            <div class="d-flex justify-content-center align-items-center gap-2">
+                                <form>
+                                    <input type="text" class="form-control" id="board-title" placeholder="Board 01...">
+                                    <div id="board-title-valid" class="form-text">👋 Please provide a valid board title.</div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-danger btn-cancel" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-outline-primary btn-save">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal thông báo xóa -->
+    <div class="modal fade" id="exampleModalDelete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body d-flex justify-content-center align-items-center flex-column">
+                    <div class="modal-icon">
+                        <i class="fa-light fa-circle-exclamation"></i>
+                    </div>
+                    <div class="delete-text">
+                        Are your sure?
+                    </div>
+                    <div class="delete-error">
+                        You won't be able to revert this!
+                    </div>
+                    <div class="delete-container-button d-flex justify-content-center align-items-center gap-2">
+                        <button type="button" class="btn btn-primary btn-save">Yes, delete it!</button>
+                        <button type="button" class="btn btn-danger btn-cancel" data-bs-dismiss="modal">Cancel</button>
                     </div>
                 </div>
             </div>

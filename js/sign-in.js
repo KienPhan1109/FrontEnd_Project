@@ -1,6 +1,14 @@
 const signInBtn = document.getElementById("sign-in-btn");
 const alertBox = document.getElementById("alert-box");
 
+// Nếu đã ghi nhớ đăng nhập thì chuyển sang dashboard luôn
+const remembered = JSON.parse(localStorage.getItem("rememberUser"));
+const sessionUser = JSON.parse(sessionStorage.getItem("sessionUser"));
+
+if (remembered || sessionUser) {
+    location.href = "../dashboard.html";
+}
+
 // Hàm thông báo lỗi
 function showError(message) {
     alertBox.innerHTML = `
@@ -48,31 +56,29 @@ signInBtn.addEventListener("click", () => {
 
     let errors = []; // Mảng chứa các lỗi để hiển thị nhiều lỗi cùng lúc
 
-    if (!email) {
-        errors.push("Email không được để trống");
-    }
-
-    if (!password) {
-        errors.push("Mật khẩu không được để trống");
-    }
+    if (!email) errors.push("Email không được để trống");
+    if (!password) errors.push("Mật khẩu không được để trống");
 
     if (errors.length > 0) {
         showError(errors.join("<br>"));
         return;
     }
     
-    // Lấy danh sách người dùng từ localStorage
-    const users = JSON.parse(localStorage.getItem("users")) || [];
+     // Lấy data từ localStorage
+    const data = JSON.parse(localStorage.getItem("data")) || { users: [] };
+    const users = data.users;
 
     // Kiểm tra có người dùng trùng khớp không
     const findUser = users.find(user => user.email === email && user.password === password);
 
     if (findUser) {
-        // Nếu người dùng chọn rememberMe thì lưu thông tin vào localStorage
+         // Ghi nhớ đăng nhập
         if (rememberMe) {
             localStorage.setItem("rememberUser", JSON.stringify({ email, password }));
+            sessionStorage.removeItem("sessionUser"); // xóa nếu có session tạm
         } else {
-            localStorage.removeItem("rememberUser");
+            sessionStorage.setItem("sessionUser", JSON.stringify({ email, password }));
+            localStorage.removeItem("rememberUser"); // xóa nếu từng ghi nhớ
         }
 
         showSuccess("Đăng nhập thành công");
@@ -83,8 +89,3 @@ signInBtn.addEventListener("click", () => {
         showError("Email hoặc mật khẩu không hợp lệ");
     }
 });
-
-const remembered = JSON.parse(localStorage.getItem("rememberUser"));
-if (remembered) {
-    location.href = "../dashboard.html";
-}

@@ -91,11 +91,12 @@ body.auth {
 /* Phần css của dashboard và event*/
 body.dashboard {
     background-color: #ffffff;
+    width: 100%;
 }
 
 .dashboard .container {
     padding: 0;
-    max-width: 1440px;
+    max-width: 2560px;
     width: 100%;
     font-weight: 500;
     line-height: 21px;
@@ -271,8 +272,8 @@ body.dashboard {
     cursor: pointer;
 }
 
-.dashboard .none {
-    display: none;
+.dashboard .action-buttons {
+    display: none !important;
 }
 
 .dashboard .edit {
@@ -338,8 +339,8 @@ body.dashboard {
     color: rgba(108, 117, 125, 1);
 }
 
-.dashboard .card:hover .card-img-overlay .none{
-    display: inline;
+.dashboard .card:hover .card-img-overlay .action-buttons{
+    display: block !important;
 }
 
 .dashboard .card:hover {
@@ -575,6 +576,7 @@ body.dashboard {
     color: rgba(84, 84, 84, 1);
 }
 
+/* Phần event */
 .dashboard .items-event img {
     width: 24px;
     height: 20px;
@@ -612,7 +614,7 @@ body.dashboard {
     font-weight: 500;
     color: rgba(23, 43, 77, 1);
     height: 56px;
-    padding-left: 12px;
+    padding-left: 24px;
     background-color: rgba(241, 242, 244, 1);
 }
 
@@ -642,4 +644,71 @@ body.dashboard {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.dashboard .card-event {
+    max-width: 272px;
+    width: 100%;
+    background-color: rgba(241, 242, 244, 1);
+    padding: 8px;
+    border-radius: 12px;
+    box-shadow: 0 1px 1px rgba(9, 30, 66, 0.25);
+
+}
+
+.dashboard .card-header {
+    height: 32px;
+    margin-bottom: 6px;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 20px;
+    margin-left: 12px;
+}
+
+.dashboard .card-header i {
+    margin-right: 8px;
+}
+
+.dashboard .card-todo {
+    background-color: rgba(255, 255, 255, 1);
+    height: 36px;
+    border-radius: 8px;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.dashboard .card-todo i{
+    color: rgba(0, 0, 0, 0.5);
+    margin-left: 10px;
+    margin-top: 2px;
+}
+
+.dashboard .card-footer img {
+    width: 32px;
+    height: 32px;
+}
+
+.dashboard .card-footer {
+    padding: 8px;
+    padding-bottom: 4px;
+}
+
+.dashboard .container-todo {
+    margin-top: 33px;
+    margin-left: 24px;
+    gap: 17px;
+}
+
+.dashboard .star-btn {
+    width: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 13px;
+    right: 10px;
 }
