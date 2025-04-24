@@ -425,6 +425,25 @@ body.dashboard {
     background: linear-gradient(to right, rgba(255, 0, 234, 1), rgba(250, 12, 0, 1));
 }
 
+.dashboard .box-color#edit-color1 {
+    background: linear-gradient(to right, rgba(255, 177, 0, 1), rgba(250, 12, 0, 1));
+}
+.dashboard .box-color#edit-color2 {
+    background: linear-gradient(to right, rgba(38, 9, 255, 1), rgba(210, 12, 255, 1));
+}
+.dashboard .box-color#edit-color3 {
+    background: linear-gradient(to right, rgba(0, 255, 47, 1), rgba(0, 255, 200, 1));
+}
+.dashboard .box-color#edit-color4 {
+    background: linear-gradient(to right, rgba(0, 255, 229, 1), rgba(0, 75, 250, 1));
+}
+.dashboard .box-color#edit-color5 {
+    background: linear-gradient(to right, rgba(255, 162, 0, 1), rgba(237, 250, 0, 1));
+}
+.dashboard .box-color#edit-color6 {
+    background: linear-gradient(to right, rgba(255, 0, 234, 1), rgba(250, 12, 0, 1));
+}
+
 .dashboard .red {
     font-style: italic;
     font-size: 16px;
@@ -531,6 +550,25 @@ body.dashboard {
     box-shadow: 0px 5px 10px rgba(255, 162, 0, 1);
 }
 .dashboard .box-color:hover#color6{
+    box-shadow: 0px 5px 10px rgba(255, 0, 234, 1);
+}
+
+.dashboard .box-color:hover#edit-color1{
+    box-shadow: 0px 5px 10px rgba(255, 177, 0, 1);
+}
+.dashboard .box-color:hover#edit-color2{
+    box-shadow: 0px 5px 10px rgba(38, 9, 255, 1);
+}
+.dashboard .box-color:hover#edit-color3{
+    box-shadow: 0px 5px 10px rgba(0, 255, 47, 1);
+}
+.dashboard .box-color:hover#edit-color4{
+    box-shadow: 0px 5px 10px rgba(0, 255, 229, 1);
+}
+.dashboard .box-color:hover#edit-color5{
+    box-shadow: 0px 5px 10px rgba(255, 162, 0, 1);
+}
+.dashboard .box-color:hover#edit-color6{
     box-shadow: 0px 5px 10px rgba(255, 0, 234, 1);
 }
 

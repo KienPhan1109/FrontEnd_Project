@@ -84,7 +84,7 @@ signInBtn.addEventListener("click", () => {
         showSuccess("Đăng nhập thành công");
         setTimeout(() => {
             location.href = "../dashboard.html";
-        }, 2000);
+        }, 1000);
     } else {
         showError("Email hoặc mật khẩu không hợp lệ");
     }

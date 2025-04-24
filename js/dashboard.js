@@ -28,10 +28,10 @@ document.addEventListener("DOMContentLoaded", () => {
         e.preventDefault();
         logout();
     });
-
+    setupCreateBoardModal();
     // Hiển thị board
     renderDashBoards(data, currentLogin);
-    setupCreateBoardModal();
+
 });
 
 
@@ -93,9 +93,9 @@ function renderDashBoards(data, remembered) {
             boardCard.innerHTML = `
                 <img src="${board.backdrop}" class="card-img" alt="">
                 <div class="card-img-overlay">
-                    <h5 class="card-title">${board.title}</h5>
+                    <h5 class="card-title" style="color: ${board.color}">${board.title}</h5>
                     <div class="action-buttons d-flex flex-column gap-1 mt-2">
-                        <button type="button" class="edit btn btn-modal" data-bs-toggle="modal" data-bs-target="#exampleModalEdit">
+                        <button type="button" class="edit btn btn-modal" onclick="editBoard(${board.id})" data-bs-toggle="modal" data-bs-target="#exampleModalEdit">
                             <i class="fa-regular fa-pen"></i> Edit this board
                         </button>
                         <button type="button" class="delete btn btn-modal">
@@ -159,96 +159,75 @@ function renderDashBoards(data, remembered) {
     normalContainer.appendChild(createCard);
 
 }
+
+// Màu và hình ảnh mặc định của hàm thêm và sửa
+const colorObject = {
+    color1: "#ffb100",
+    color2: "#2609ff",
+    color3: "#00ff2f",
+    color4: "#00ffe5",
+    color5: "#ffa200",
+    color6: "#ff00ea"
+};
+
+const imageObject = {
+    img1: "../assets/images/board1.png",
+    img2: "../assets/images/board2.png",
+    img3: "../assets/images/board3.png",
+    img4: "../assets/images/board4.png"
+};
+
 function setupCreateBoardModal() {
-    // Danh sách ID của hình ảnh và color
-    const imageIds = ["img1", "img2", "img3", "img4"];
-    const colorIds = ["color1", "color2", "color3", "color4", "color5", "color6"];
+    // Lấy các keys từ hai Object
+    const imageIds = Object.keys(imageObject);
+    const colorIds = Object.keys(colorObject);
 
     const boardTitleInput = document.getElementById("board-title");
     const boardTitleValid = document.getElementById("board-title-valid");
     const createBtn = document.querySelector("#exampleModalCreate .btn-outline-primary");
 
-    // Map màu chữ cố định theo ID (bạn có thể điều chỉnh giá trị hex theo ý)
-    const colorMap = {
-        color1: "#ffb100",
-        color2: "#2609ff",
-        color3: "#00ff2f",
-        color4: "#00ffe5",
-        color5: "#ffa200",
-        color6: "#ff00ea"
-    };
+    let selectedBackdrop = imageObject[imageIds[0]]; // Ảnh mặc định
+    let selectedColor = colorObject[colorIds[0]]; // Màu chữ mặc định
 
-    // Đảm bảo các icon tick trong box màu đều ẩn ban đầu
-    colorIds.forEach(id => {
-        const el = document.getElementById(id);
-        const icon = el.querySelector("i");
-        if (icon) {
-            icon.classList.add("d-none");
-        }
-    });
+    // Tick mặc định
+    document.querySelector(`#${imageIds[0]} i`)?.classList.remove("d-none");
+    document.querySelector(`#${colorIds[0]} i`)?.classList.remove("d-none");
 
-    // Đảm bảo tick hình ảnh cũng ẩn ban đầu (nếu có)
-    imageIds.forEach(id => {
-        const el = document.getElementById(id);
-        const icon = el.querySelector("i");
-        if (icon) {
-            icon.classList.add("d-none");
-        }
-    });
-
-    // Lấy giá trị mặc định từ phần color1 và img1
-    let selectedBackdrop = document.querySelector("#img1 img").src;
-    let selectedColor = colorMap["color1"];
-
-    // --- Xử lý chọn hình nền ---
+    // Click chọn hình ảnh
     imageIds.forEach(id => {
         const el = document.getElementById(id);
         el.addEventListener("click", () => {
-            // Ẩn tick cho tất cả các hình
             imageIds.forEach(imgId => {
-                const icon = document.querySelector(`#${imgId} i`);
-                if(icon) icon.classList.add("d-none");
+                document.querySelector(`#${imgId} i`)?.classList.add("d-none");
             });
-            // Hiển thị tick của hình được chọn
-            const iconSelected = el.querySelector("i");
-            if (iconSelected) {
-                iconSelected.classList.remove("d-none");
-            }
-            selectedBackdrop = el.querySelector("img").src;
+            el.querySelector("i")?.classList.remove("d-none");
+            selectedBackdrop = imageObject[id];
         });
     });
 
-    // --- Xử lý chọn màu chữ ---
+    // === Click chọn màu chữ ===
     colorIds.forEach(id => {
         const el = document.getElementById(id);
         el.addEventListener("click", () => {
-            // Ẩn tick cho tất cả các color box
             colorIds.forEach(colorId => {
-                const icon = document.querySelector(`#${colorId} i`);
-                if(icon) icon.classList.add("d-none");
+                document.querySelector(`#${colorId} i`)?.classList.add("d-none");
             });
-            // Kiểm tra xem box hiện tại có <i> chưa, nếu chưa tạo mới rồi append
-            let icon = el.querySelector("i");
-            if (!icon) {
-                icon = document.createElement("i");
-                icon.className = "fa-solid fa-circle-check";
-                el.appendChild(icon);
-            }
-            icon.classList.remove("d-none");
-
-            // Lấy giá trị màu chữ theo map
-            selectedColor = colorMap[id];
+            el.querySelector("i")?.classList.remove("d-none");
+            selectedColor = colorObject[id];
         });
     });
 
-    // --- Xử lý tạo board mới ---
+    boardTitleValid.innerText = "";
+    // === Tạo board ===
     createBtn.addEventListener("click", () => {
         const title = boardTitleInput.value.trim();
         if (!title) {
             boardTitleValid.style.color = "red";
+            boardTitleValid.innerText = "👋 Please provide a valid board title.";
             return;
         } else {
             boardTitleValid.style.color = "transparent";
+            boardTitleValid.innerText = "";
         }
 
         const remembered = JSON.parse(localStorage.getItem("rememberUser")) || JSON.parse(sessionStorage.getItem("sessionUser"));
@@ -256,28 +235,107 @@ function setupCreateBoardModal() {
         const currentUser = data.users.find(u => u.email === remembered.email);
 
         const newBoard = {
-            id: Date.now(),  // Có thể thay bằng hàm tạo ID tự tăng nếu cần
+            id: Date.now(),
             title,
             description: "",
             backdrop: selectedBackdrop,
-            color: selectedColor, // màu chữ cho board
+            color: selectedColor,
             is_starred: false,
             is_closed: false,
             created_at: new Date().toISOString(),
             lists: []
         };
 
-        // Thêm board mới vào danh sách của user hiện tại
         currentUser.boards.push(newBoard);
         localStorage.setItem("data", JSON.stringify(data));
 
-        // Đóng modal và reset form
         const modal = bootstrap.Modal.getInstance(document.getElementById("exampleModalCreate"));
         modal.hide();
         boardTitleInput.value = "";
 
-        // Cập nhật lại danh sách board trên dashboard
-        displayDashBroads(data, remembered);
+        renderDashBoards(data, remembered);
     });
 }
+
+function editBoard(boardId) {
+    const remembered = JSON.parse(localStorage.getItem("rememberUser")) || JSON.parse(sessionStorage.getItem("sessionUser"));
+    const data = JSON.parse(localStorage.getItem("data")) || { users: [] };
+    const currentUser = data.users.find(u => u.email === remembered.email);
+    const board = currentUser.boards.find(b => b.id === boardId);
+
+    if (!board) return;
+
+    const modalEl = document.getElementById("exampleModalEdit");
+    const titleInput = modalEl.querySelector("#edit-board-title");
+    const saveBtn = modalEl.querySelector(".btn-save");
+
+    // Gán lại title
+    titleInput.value = board.title;
+
+    // Chuẩn bị dữ liệu
+    const imageIds = Object.keys(imageObject);
+    const colorIds = Object.keys(colorObject);
+
+    let selectedBackdrop = board.backdrop;
+    let selectedColor = board.color;
+
+    // Reset icon chọn
+    imageIds.forEach(id => modalEl.querySelector(`#edit-${id} i`)?.classList.add("d-none"));
+    colorIds.forEach(id => modalEl.querySelector(`#edit-${id} i`)?.classList.add("d-none"));
+
+    const selectedImgId = imageIds.find(id => imageObject[id] === board.backdrop);
+    const selectedColorId = colorIds.find(id => colorObject[id] === board.color);
+
+    modalEl.querySelector(`#edit-${selectedImgId} i`)?.classList.remove("d-none");
+    modalEl.querySelector(`#edit-${selectedColorId} i`)?.classList.remove("d-none");
+
+    // Bắt sự kiện click hình ảnh
+    imageIds.forEach(id => {
+        const el = modalEl.querySelector(`#edit-${id}`);
+        if (!el) return;
+        el.onclick = () => {
+            imageIds.forEach(i => modalEl.querySelector(`#edit-${i} i`)?.classList.add("d-none"));
+            el.querySelector("i")?.classList.remove("d-none");
+            selectedBackdrop = imageObject[id];
+        };
+    });
+
+    // Bắt sự kiện click màu
+    colorIds.forEach(id => {
+        const el = modalEl.querySelector(`#edit-${id}`);
+        if (!el) return;
+        el.onclick = () => {
+            colorIds.forEach(i => modalEl.querySelector(`#edit-${i} i`)?.classList.add("d-none"));
+            el.querySelector("i")?.classList.remove("d-none");
+            selectedColor = colorObject[id];
+        };
+    });
+
+    const validEl = modalEl.querySelector("#edit-board-title-valid");
+    // Lưu chỉnh sửa
+    validEl.innerText = '';
+    saveBtn.onclick = () => {
+        const newTitle = titleInput.value.trim();
+
+        if (!newTitle) {
+            validEl.style.color = "red";
+            validEl.innerText = "👋 Please provide a valid board title.";
+            return;
+            } else {
+                validEl.style.color = "transparent"; // hoặc "inherit"
+            }
+
+            board.title = newTitle;
+            board.backdrop = selectedBackdrop;
+            board.color = selectedColor;
+
+            localStorage.setItem("data", JSON.stringify(data));
+
+            const modal = bootstrap.Modal.getInstance(modalEl);
+            modal.hide();
+            renderDashBoards(data, remembered);
+        };
+}
+
+
 

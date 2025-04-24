@@ -142,18 +142,7 @@
                         </div>
                     </div>
                     <div class="container-board d-flex flex-wrap gap-3" id="closed-container">
-                        <div class="card text-bg-dark">
-                            <img src="../assets/images/board5.png" class="card-img" alt="...">
-                            <div class="card-img-overlay">
-                                <h5 class="card-title starred-text">Important Board 01</h5>
-                            </div>
-                        </div>
-                        <div class="card text-bg-dark">
-                            <img src="../assets/images/board6.png" class="card-img" alt="...">
-                            <div class="card-img-overlay">
-                                <h5 class="card-title starred-text">Important Board 02</h5>
-                            </div>
-                        </div>
+                        <!-- Toàn bộ Board đã đóng dữ liệu từ Js -->
                     </div>
                 </div>
             </div>
@@ -174,29 +163,44 @@
                             <div class="title-text">Background</div>
                             <div class="d-flex justify-content-center align-items-center gap-2">
                                 <div class="position-relative" id="img1">
-                                    <img src="../assets/images/board2.png" alt="">
-                                    <i class="fa-solid fa-circle-check"></i>
+                                    <img src="../assets/images/board1.png" alt="">
+                                    <i class="fa-solid fa-circle-check d-none"></i>
                                 </div>
                                 <div class="position-relative" id="img2">
-                                    <img src="../assets/images/board1.png" alt="">
+                                    <img src="../assets/images/board2.png" alt="">
+                                    <i class="fa-solid fa-circle-check d-none"></i>
                                 </div>
                                 <div class="position-relative" id="img3">
-                                    <img src="../assets/images/board4.png" alt="">
+                                    <img src="../assets/images/board3.png" alt="">
+                                    <i class="fa-solid fa-circle-check d-none"></i>
                                 </div>
                                 <div class="position-relative" id="img4">
-                                    <img src="../assets/images/board3.png" alt="">
+                                    <img src="../assets/images/board4.png" alt="">
+                                    <i class="fa-solid fa-circle-check d-none"></i>
                                 </div>
                             </div>
                         </div>
                         <div class="color">
                             <div class="title-text">Color</div>
                             <div class="d-flex justify-content-center align-items-center gap-2">
-                                <div class="box-color d-flex justify-content-center align-items-center" id="color1"><i class="fa-solid fa-circle-check"></i></div>
-                                <div class="box-color d-flex justify-content-center align-items-center" id="color2"><i class="fa-solid fa-circle-check d-none"></i></div>
-                                <div class="box-color d-flex justify-content-center align-items-center" id="color3"><i class="fa-solid fa-circle-check d-none"></i></div>
-                                <div class="box-color d-flex justify-content-center align-items-center" id="color4"><i class="fa-solid fa-circle-check d-none"></i></div>
-                                <div class="box-color d-flex justify-content-center align-items-center" id="color5"><i class="fa-solid fa-circle-check d-none"></i></div>
-                                <div class="box-color d-flex justify-content-center align-items-center" id="color6"><i class="fa-solid fa-circle-check d-none"></i></div>
+                                <div class="box-color d-flex justify-content-center align-items-center" id="color1" style="background-color: #ffb100">
+                                    <i class="fa-solid fa-circle-check d-none"></i>
+                                </div>
+                                <div class="box-color d-flex justify-content-center align-items-center" id="color2" style="background-color: #2609ff">
+                                    <i class="fa-solid fa-circle-check d-none"></i>
+                                </div>
+                                <div class="box-color d-flex justify-content-center align-items-center" id="color3" style="background-color: #00ff2f">
+                                    <i class="fa-solid fa-circle-check d-none"></i>
+                                </div>
+                                <div class="box-color d-flex justify-content-center align-items-center" id="color4" style="background-color: #00ffe5">
+                                    <i class="fa-solid fa-circle-check d-none"></i>
+                                </div>
+                                <div class="box-color d-flex justify-content-center align-items-center" id="color5" style="background-color: #ffa200">
+                                    <i class="fa-solid fa-circle-check d-none"></i>
+                                </div>
+                                <div class="box-color d-flex justify-content-center align-items-center" id="color6" style="background-color: #ff00ea">
+                                    <i class="fa-solid fa-circle-check d-none"></i>
+                                </div>
                             </div>
                         </div>
                         <div class="board-title">
@@ -204,7 +208,7 @@
                             <div class="d-flex justify-content-center align-items-center gap-2">
                                 <form>
                                     <input type="text" class="form-control" id="board-title" placeholder="E.g. Shopping list for birthday...">
-                                    <div id="board-title-valid" class="form-text">👋 Please provide a valid board title.</div>
+                                    <div id="board-title-valid" class="form-text"></div>
                                 </form>
                             </div>
                         </div>
@@ -230,38 +234,41 @@
                         <div class="background">
                             <div class="title-text">Background</div>
                             <div class="d-flex justify-content-center align-items-center gap-2">
-                                <div class="position-relative">
-                                    <img src="../assets/images/board2.png" alt="">
-                                    <i class="fa-solid fa-circle-check"></i>
-                                </div>
-                                <div class="position-relative">
+                                <div class="position-relative" id="edit-img1">
                                     <img src="../assets/images/board1.png" alt="">
+                                    <i class="fa-solid fa-circle-check d-none"></i>
                                 </div>
-                                <div class="position-relative">
-                                    <img src="../assets/images/board4.png" alt="">
+                                <div class="position-relative" id="edit-img2">
+                                    <img src="../assets/images/board2.png" alt="">
+                                    <i class="fa-solid fa-circle-check d-none"></i>
                                 </div>
-                                <div class="position-relative">
+                                <div class="position-relative" id="edit-img3">
                                     <img src="../assets/images/board3.png" alt="">
+                                    <i class="fa-solid fa-circle-check d-none"></i>
+                                </div>
+                                <div class="position-relative" id="edit-img4">
+                                    <img src="../assets/images/board4.png" alt="">
+                                    <i class="fa-solid fa-circle-check d-none"></i>
                                 </div>
                             </div>
                         </div>
                         <div class="color">
                             <div class="title-text">Color</div>
                             <div class="d-flex justify-content-center align-items-center gap-2">
-                                <div class="box-color d-flex justify-content-center align-items-center" id="color1"><i class="fa-solid fa-circle-check"></i></div>
-                                <div class="box-color d-flex justify-content-center align-items-center" id="color2"></div>
-                                <div class="box-color d-flex justify-content-center align-items-center" id="color3"></div>
-                                <div class="box-color d-flex justify-content-center align-items-center" id="color4"></div>
-                                <div class="box-color d-flex justify-content-center align-items-center" id="color5"></div>
-                                <div class="box-color d-flex justify-content-center align-items-center" id="color6"></div>
+                                <div class="box-color d-flex justify-content-center align-items-center" id="edit-color1"><i class="fa-solid fa-circle-check d-none"></i></div>
+                                <div class="box-color d-flex justify-content-center align-items-center" id="edit-color2"><i class="fa-solid fa-circle-check d-none"></i></div>
+                                <div class="box-color d-flex justify-content-center align-items-center" id="edit-color3"><i class="fa-solid fa-circle-check d-none"></i></div>
+                                <div class="box-color d-flex justify-content-center align-items-center" id="edit-color4"><i class="fa-solid fa-circle-check d-none"></i></div>
+                                <div class="box-color d-flex justify-content-center align-items-center" id="edit-color5"><i class="fa-solid fa-circle-check d-none"></i></div>
+                                <div class="box-color d-flex justify-content-center align-items-center" id="edit-color6"><i class="fa-solid fa-circle-check d-none"></i></div>
                             </div>
                         </div>
                         <div class="board-title">
                             <div class="title-text">Board title <span class="red">*</span></div>
                             <div class="d-flex justify-content-center align-items-center gap-2">
                                 <form>
-                                    <input type="text" class="form-control" id="board-title" placeholder="Board 01...">
-                                    <div id="board-title-valid" class="form-text">👋 Please provide a valid board title.</div>
+                                    <input type="text" class="form-control" id="edit-board-title" placeholder="Board 01...">
+                                    <div id="edit-board-title-valid" class="form-text"></div>
                                 </form>
                             </div>
                         </div>

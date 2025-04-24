@@ -107,7 +107,7 @@ signUpBtn.addEventListener("click", () => {
     showSuccess("Đăng ký thành công");
     setTimeout(() => {
         location.href = "sign-in.html";
-    }, 2000); // Chuyển hướng sau 2 giây
+    }, 1000); // Chuyển hướng sau 1 giây
 });
 
 const remembered = JSON.parse(localStorage.getItem("rememberUser"));
