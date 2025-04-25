@@ -1,7 +1,26 @@
-@media (max-width: 576px) {
+@media (max-width: 860px) {
     .sidebar {
         display: none;
     }
+    .dashboard .heading1 {
+        font-size: 23px;
+    }
+
+    .dashboard .card {
+        width: 230px;
+    }
+
+    .dashboard .edit {
+        width: 140px;
+        font-size: 12px;
+        left: 15px;
+    }
+    .dashboard .navbar-toggler {
+        display: block !important;
+    }
+}
+
+@media (max-width: 545px) {
 
     .dashboard .header .logo{
         max-width: 112px;
@@ -9,21 +28,31 @@
     }
 
     .dashboard .heading1 {
-        font-size: 23px;
-        line-height: 31.66px;
+        font-size: 30px;
     }
 
     .dashboard .card {
-        width: 230px;
-    }
-
-    .dashboard .navbar-toggler {
-        display: block !important;
+        width: 300px;
+        height: 170px;
+        object-fit: cover;
     }
 
     .dashboard .edit {
-        width: 140px;
+        top: 120px;
+        width: 200px;
         font-size: 12px;
         left: 15px;
+    }
+
+    .dashboard .delete {
+        top: 120px;
+    }
+    
+    .dashboard .btn-group {
+        display: none !important;
+    }
+
+    .dashboard .dropdown {
+        display: none !important;
     }
 }

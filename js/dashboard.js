@@ -28,6 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
         e.preventDefault();
         logout();
     });
+    setupBoardNavigation();
     setupCreateBoardModal();
     // Hiển thị board
     renderDashBoards(data, currentLogin);
@@ -334,8 +335,44 @@ function editBoard(boardId) {
             const modal = bootstrap.Modal.getInstance(modalEl);
             modal.hide();
             renderDashBoards(data, remembered);
-        };
+    };
 }
 
+function setupBoardNavigation() {
+    const allSection = document.querySelectorAll(".workspaces");
+    const sidebarAll = document.getElementById("sidebar-all");
+    const sidebarStarred = document.getElementById("sidebar-starred");
+    const sidebarClosed = document.getElementById("sidebar-closed");
 
+    sidebarAll?.addEventListener("click", () => {
+        allSection.forEach(sec => sec.classList.remove("d-none"));
+    });
 
+    sidebarStarred?.addEventListener("click", () => {
+        allSection.forEach(sec => sec.classList.add("d-none"));
+        document.querySelector("#starred-container")?.closest(".workspaces")?.classList.remove("d-none");
+    });
+
+    sidebarClosed?.addEventListener("click", () => {
+        allSection.forEach(sec => sec.classList.add("d-none"));
+        document.querySelector("#closed-container")?.closest(".workspaces")?.classList.remove("d-none");
+    });
+
+    const navAll = document.getElementById("nav-all");
+    const navStarred = document.getElementById("nav-starred");
+    const navClosed = document.getElementById("nav-closed");
+
+    navAll?.addEventListener("click", () => {
+        allSection.forEach(sec => sec.classList.remove("d-none"));
+    });
+
+    navStarred?.addEventListener("click", () => {
+        allSection.forEach(sec => sec.classList.add("d-none"));
+        document.querySelector("#starred-container")?.closest(".workspaces")?.classList.remove("d-none");
+    });
+
+    navClosed?.addEventListener("click", () => {
+        allSection.forEach(sec => sec.classList.add("d-none"));
+        document.querySelector("#closed-container")?.closest(".workspaces")?.classList.remove("d-none");
+    });
+}
