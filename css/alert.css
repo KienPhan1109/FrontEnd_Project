@@ -78,3 +78,86 @@ img.icon-successful {
     width: 20px;
     height: 20px;
 }
+
+/* Phần thông báo lỗi Dashboard*/
+.alert-box-error-dashboard {
+    position: absolute;
+    bottom: 50px;
+    right: 50px;
+    width: 100%;
+    max-width: 299px;
+    background-color: white !important;
+    border-radius: 8px;
+}
+
+.alert-box-error-dashboard .alert-box-error .alert {
+    padding: 16px;
+    background-color: #FFE5E8;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    color: #000000;
+}
+
+.alert-box-error-dashboard .icon-error {
+    width: 13.33px;
+    height: 13.33px;
+}
+
+.alert-box-error-dashboard .btn-close-custom {
+    background-color: #FFFFFF;
+    opacity: 35%;
+    border: none;
+    border-radius: 100px;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 4px;
+}
+
+.alert-box-error-dashboard .btn-close-custom:hover {
+    background-color:#bdbdbd;
+}
+
+.alert-box-error-dashboard .btn-close-custom img {
+    width: 9.33px;
+    height: 9.33px;
+}
+
+.alert-box-error-dashboard .alert strong {
+    font-size: 16px;
+    color: #11151F;
+    font-weight: 500;
+    line-height: 100%;
+}
+
+.alert-box-error-dashboard .error-messages {
+    padding-left: 24px;
+    line-height: 150%;
+}
+
+/* Phần thông báo thành công */
+.alert-box-successful-dashboard {
+    position: absolute;
+    bottom: 50px;
+    right: 50px;
+    width: 100%;
+    max-width: 299px;
+}
+
+.alert-box-successful-dashboard .alert {
+    padding: 16px;
+    background-color: #E5FFF0;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    color: #000000;
+    gap: 8px;
+}
+
+.alert-box-successful-dashboard img.icon-successful {
+    width: 20px;
+    height: 20px;
+}

@@ -621,7 +621,6 @@ body.dashboard {
     margin-left: 16px;
     border-radius: 2px;
     opacity: 0.7;
-
 }
 
 .dashboard .items-event {
@@ -731,7 +730,7 @@ body.dashboard {
 }
 
 .dashboard .card-footer {
-    padding: 8px;
+    padding: 0px 2px;
     padding-bottom: 4px;
 }
 
@@ -749,4 +748,80 @@ body.dashboard {
     position: absolute;
     top: 13px;
     right: 10px;
+}
+
+.dashboard .add-card-form input {
+    height: 50px;
+}
+
+.dashboard .add-card-form .cancel-card {
+    font-size: 14px;
+}
+
+.dashboard .cancel-list {
+    font-size: 14px;
+}
+
+.editable-list-title {
+    font-weight: bold;
+    font-size: 16px;
+    width: 100%;
+    outline: none;
+}
+
+.delete-list-icon i {
+    color: rgba(84, 84, 84, 1);
+    border-radius: 5px;
+    font-size: 14px;
+    padding: 7px 8px;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.delete-list-icon i:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 5px rgba(0,0,0,0.3);
+}
+
+.add-card-btn {
+    width: 100%;
+    text-align: left !important;
+    transition: background-color 0.2s;
+}
+
+.add-card-btn:hover {
+    background-color: #d6dadf;
+}
+
+/* Icon 3 chấm */
+.delete-list-menu i {
+    font-size: 18px;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.delete-list-menu i:hover {
+    color: #0077ff;
+}
+
+.event-star-icon i {
+    font-size: 20px;
+    cursor: pointer;
+    color: gold;
+}
+
+.smalll {
+    font-size: 10px;
+}
+
+.dashboard .board-color {
+    width: 24px;
+    height: 20px;
+    margin-left: 16px;
+    border-radius: 2px;
+    opacity: 0.7;
+}
+
+.dashboard .offcanvas-body .items-event .board-color  {
+    margin-left: 0px;
 }

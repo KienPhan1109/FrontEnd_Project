@@ -1,6 +1,14 @@
 const signUpBtn = document.getElementById("sign-up-btn");
 const alertBox = document.getElementById("alert-box");
 
+// Nếu đã ghi nhớ đăng nhập thì chuyển sang dashboard luôn
+const remembered = JSON.parse(localStorage.getItem("rememberUser"));
+const sessionUser = JSON.parse(sessionStorage.getItem("sessionUser"));
+
+if (remembered || sessionUser) {
+    location.href = "../dashboard.html";
+}
+
 // Hàm thông báo lỗi
 function showError(message) {
     alertBox.innerHTML = `
@@ -109,8 +117,3 @@ signUpBtn.addEventListener("click", () => {
         location.href = "sign-in.html";
     }, 1000); // Chuyển hướng sau 1 giây
 });
-
-const remembered = JSON.parse(localStorage.getItem("rememberUser"));
-if (remembered) {
-    location.href = "../dashboard.html";
-}

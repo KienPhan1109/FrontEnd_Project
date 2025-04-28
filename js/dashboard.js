@@ -19,15 +19,9 @@ document.addEventListener("DOMContentLoaded", () => {
         location.href = "./auth/sign-in.html";
     };
 
-    document.getElementById("sign-out-btn")?.addEventListener("click", (e) => {
-        e.preventDefault();
-        logout();
-    });
+    document.getElementById("sign-out-btn").addEventListener("click", logout);
+    document.getElementById("sign-out-btn2").addEventListener("click", logout);
 
-    document.getElementById("sign-out-btn2")?.addEventListener("click", (e) => {
-        e.preventDefault();
-        logout();
-    });
     setupBoardNavigation();
     setupCreateBoardModal();
     // Hiển thị board
@@ -91,32 +85,54 @@ function renderDashBoards(data, remembered) {
 
             closedContainer.appendChild(boardCard);
         } else {
-            boardCard.innerHTML = `
-                <img src="${board.backdrop}" class="card-img" alt="">
-                <div class="card-img-overlay">
-                    <h5 class="card-title" style="color: ${board.color}">${board.title}</h5>
-                    <div class="action-buttons d-flex flex-column gap-1 mt-2">
-                        <button type="button" class="edit btn btn-modal" onclick="editBoard(${board.id})" data-bs-toggle="modal" data-bs-target="#exampleModalEdit">
-                            <i class="fa-regular fa-pen"></i> Edit this board
-                        </button>
-                        <button type="button" class="delete btn btn-modal">
-                            <i class="fa-solid fa-trash"></i>
-                        </button>
-                        <button type="button" class="star btn star-btn" data-id="${board.id}">
-                            <i class="fa-star ${board.is_starred ? 'fa-solid text-warning' : 'fa-regular text-light'}"></i>
-                        </button>
+            if (board.backdrop?.startsWith("linear-gradient")) {
+                // màu nền
+                boardCard.innerHTML = `
+                    <div class="card-img-overlay" style="background: ${board.backdrop}">
+                        <h5 class="card-title">${board.title}</h5>
+                        <div class="action-buttons d-flex flex-column gap-1 mt-2">
+                            <button type="button" class="edit btn btn-modal" data-bs-toggle="modal" data-bs-target="#exampleModalEdit" data-id="${board.id}">
+                                <i class="fa-regular fa-pen"></i> Edit this board
+                            </button>
+                            <button type="button" class="delete btn btn-modal">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                            <button type="button" class="star btn star-btn" data-id="${board.id}">
+                                <i class="fa-star ${board.is_starred ? 'fa-solid text-warning' : 'fa-regular text-light'}"></i>
+                            </button>
+                        </div>
                     </div>
-                </div>
-            `;
-
+                `;
+            } else {
+                // hình ảnh
+                boardCard.innerHTML = `
+                    <img src="${board.backdrop}" class="card-img" alt="">
+                    <div class="card-img-overlay">
+                        <h5 class="card-title">${board.title}</h5>
+                        <div class="action-buttons d-flex flex-column gap-1 mt-2">
+                            <button type="button" class="edit btn btn-modal" data-bs-toggle="modal" data-bs-target="#exampleModalEdit" data-id="${board.id}">
+                                <i class="fa-regular fa-pen"></i> Edit this board
+                            </button>
+                            <button type="button" class="delete btn btn-modal">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                            <button type="button" class="star btn star-btn" data-id="${board.id}">
+                                <i class="fa-star ${board.is_starred ? 'fa-solid text-warning' : 'fa-regular text-light'}"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }
             // Khí nhấn vào board sẽ lưu lại id và chuyển trang 
             boardCard.querySelector(".card-img-overlay").addEventListener("click", () => {
                 sessionStorage.setItem("selectedBoardId", board.id);
+                sessionStorage.setItem("selectedBackdrop", board.backdrop);
                 location.href = "./event.html";
             });
 
             boardCard.querySelector(".edit").addEventListener("click", (e) => {
                 e.stopPropagation();
+                editBoard(board.id); // ✅ Gọi hàm sửa khi nhấn
             });
 
             // Nút xóa
@@ -163,13 +179,14 @@ function renderDashBoards(data, remembered) {
 
 // Màu và hình ảnh mặc định của hàm thêm và sửa
 const colorObject = {
-    color1: "#ffb100",
-    color2: "#2609ff",
-    color3: "#00ff2f",
-    color4: "#00ffe5",
-    color5: "#ffa200",
-    color6: "#ff00ea"
+    color1: "linear-gradient(to right, rgba(255, 177, 0, 1), rgba(250, 12, 0, 1))",
+    color2: "linear-gradient(to right, rgba(38, 9, 255, 1), rgba(210, 12, 255, 1))",
+    color3: "linear-gradient(to right, rgba(0, 255, 47, 1), rgba(0, 255, 200, 1))",
+    color4: "linear-gradient(to right, rgba(0, 255, 229, 1), rgba(0, 75, 250, 1))",
+    color5: "linear-gradient(to right, rgba(255, 162, 0, 1), rgba(237, 250, 0, 1))",
+    color6: "linear-gradient(to right, rgba(255, 0, 234, 1), rgba(250, 12, 0, 1))",
 };
+
 
 const imageObject = {
     img1: "../assets/images/board1.png",
@@ -179,7 +196,6 @@ const imageObject = {
 };
 
 function setupCreateBoardModal() {
-    // Lấy các keys từ hai Object
     const imageIds = Object.keys(imageObject);
     const colorIds = Object.keys(colorObject);
 
@@ -187,17 +203,23 @@ function setupCreateBoardModal() {
     const boardTitleValid = document.getElementById("board-title-valid");
     const createBtn = document.querySelector("#exampleModalCreate .btn-outline-primary");
 
-    let selectedBackdrop = imageObject[imageIds[0]]; // Ảnh mặc định
-    let selectedColor = colorObject[colorIds[0]]; // Màu chữ mặc định
+    let selectedBackdrop = imageObject[imageIds[0]]; // mặc định là img1
+    let selectedColor = null;
 
-    // Tick mặc định
+    // Tick ảnh mặc định
     document.querySelector(`#${imageIds[0]} i`)?.classList.remove("d-none");
-    document.querySelector(`#${colorIds[0]} i`)?.classList.remove("d-none");
 
-    // Click chọn hình ảnh
+    // === Chọn ảnh ===
     imageIds.forEach(id => {
         const el = document.getElementById(id);
         el.addEventListener("click", () => {
+            // Xóa tick màu
+            colorIds.forEach(cid => {
+                document.querySelector(`#${cid} i`)?.classList.add("d-none");
+            });
+            selectedColor = null;
+
+            // Tick ảnh
             imageIds.forEach(imgId => {
                 document.querySelector(`#${imgId} i`)?.classList.add("d-none");
             });
@@ -206,56 +228,60 @@ function setupCreateBoardModal() {
         });
     });
 
-    // === Click chọn màu chữ ===
+    // === Chọn màu ===
     colorIds.forEach(id => {
         const el = document.getElementById(id);
         el.addEventListener("click", () => {
-            colorIds.forEach(colorId => {
-                document.querySelector(`#${colorId} i`)?.classList.add("d-none");
+            // Xóa tick ảnh
+            imageIds.forEach(imgId => {
+                document.querySelector(`#${imgId} i`)?.classList.add("d-none");
+            });
+            selectedBackdrop = imageObject[imageIds[0]]; // fallback ảnh mặc định
+
+            // Tick màu
+            colorIds.forEach(cid => {
+                document.querySelector(`#${cid} i`)?.classList.add("d-none");
             });
             el.querySelector("i")?.classList.remove("d-none");
             selectedColor = colorObject[id];
         });
     });
 
-    boardTitleValid.innerText = "";
     // === Tạo board ===
     createBtn.addEventListener("click", () => {
         const title = boardTitleInput.value.trim();
+    
         if (!title) {
             boardTitleValid.style.color = "red";
             boardTitleValid.innerText = "👋 Please provide a valid board title.";
             return;
-        } else {
-            boardTitleValid.style.color = "transparent";
-            boardTitleValid.innerText = "";
         }
-
+        boardTitleValid.style.color = "transparent";
+    
         const remembered = JSON.parse(localStorage.getItem("rememberUser")) || JSON.parse(sessionStorage.getItem("sessionUser"));
         const data = JSON.parse(localStorage.getItem("data")) || { users: [] };
         const currentUser = data.users.find(u => u.email === remembered.email);
-
+    
         const newBoard = {
             id: Date.now(),
             title,
-            description: "",
-            backdrop: selectedBackdrop,
-            color: selectedColor,
+            backdrop: selectedColor || selectedBackdrop, // Dùng backdrop là ảnh hoặc màu
             is_starred: false,
             is_closed: false,
             created_at: new Date().toISOString(),
             lists: []
         };
-
+    
         currentUser.boards.push(newBoard);
         localStorage.setItem("data", JSON.stringify(data));
-
+    
         const modal = bootstrap.Modal.getInstance(document.getElementById("exampleModalCreate"));
         modal.hide();
         boardTitleInput.value = "";
-
+    
         renderDashBoards(data, remembered);
     });
+    
 }
 
 function editBoard(boardId) {
@@ -263,80 +289,102 @@ function editBoard(boardId) {
     const data = JSON.parse(localStorage.getItem("data")) || { users: [] };
     const currentUser = data.users.find(u => u.email === remembered.email);
     const board = currentUser.boards.find(b => b.id === boardId);
-
     if (!board) return;
 
     const modalEl = document.getElementById("exampleModalEdit");
     const titleInput = modalEl.querySelector("#edit-board-title");
-    const saveBtn = modalEl.querySelector(".btn-save");
+    const saveBtn    = modalEl.querySelector(".btn-save");
 
-    // Gán lại title
+    // Hiển thị title hiện tại
     titleInput.value = board.title;
 
-    // Chuẩn bị dữ liệu
-    const imageIds = Object.keys(imageObject);
-    const colorIds = Object.keys(colorObject);
+    // Các ID hình và màu
+    const imageIds = Object.keys(imageObject);   // ["img1","img2",...]
+    const colorIds = Object.keys(colorObject);   // ["color1","color2",...]
 
+    // Biến lưu state
     let selectedBackdrop = board.backdrop;
-    let selectedColor = board.color;
+    let selectedColor    = board.color;
 
-    // Reset icon chọn
-    imageIds.forEach(id => modalEl.querySelector(`#edit-${id} i`)?.classList.add("d-none"));
-    colorIds.forEach(id => modalEl.querySelector(`#edit-${id} i`)?.classList.add("d-none"));
+    // 1) Reset hết tick
+    imageIds.forEach(id => {
+        modalEl.querySelector(`#edit-${id} i`)?.classList.add("d-none");
+    });
+    colorIds.forEach(id => {
+        modalEl.querySelector(`#edit-${id} i`)?.classList.add("d-none");
+    });
 
-    const selectedImgId = imageIds.find(id => imageObject[id] === board.backdrop);
-    const selectedColorId = colorIds.find(id => colorObject[id] === board.color);
+    // 2) Tick lại theo dữ liệu hiện tại
+    const selImg = imageIds.find(id => imageObject[id] === board.backdrop);
+    const selCol = colorIds.find(id => colorObject[id] === board.color);
+    if (selImg) modalEl.querySelector(`#edit-${selImg} i`)?.classList.remove("d-none");
+    if (selCol) modalEl.querySelector(`#edit-${selCol} i`)?.classList.remove("d-none");
 
-    modalEl.querySelector(`#edit-${selectedImgId} i`)?.classList.remove("d-none");
-    modalEl.querySelector(`#edit-${selectedColorId} i`)?.classList.remove("d-none");
-
-    // Bắt sự kiện click hình ảnh
+    // 3) Bắt sự kiện chọn hình ảnh
     imageIds.forEach(id => {
         const el = modalEl.querySelector(`#edit-${id}`);
         if (!el) return;
         el.onclick = () => {
-            imageIds.forEach(i => modalEl.querySelector(`#edit-${i} i`)?.classList.add("d-none"));
+            // reset màu
+            colorIds.forEach(i => {
+                modalEl.querySelector(`#edit-${i} i`)?.classList.add("d-none");
+            });
+            selectedColor = null;
+
+            // tick ảnh
+            imageIds.forEach(i => {
+                modalEl.querySelector(`#edit-${i} i`)?.classList.add("d-none");
+            });
             el.querySelector("i")?.classList.remove("d-none");
+
             selectedBackdrop = imageObject[id];
         };
     });
 
-    // Bắt sự kiện click màu
+    // 4) Bắt sự kiện chọn màu
     colorIds.forEach(id => {
         const el = modalEl.querySelector(`#edit-${id}`);
         if (!el) return;
         el.onclick = () => {
-            colorIds.forEach(i => modalEl.querySelector(`#edit-${i} i`)?.classList.add("d-none"));
+            // reset ảnh
+            imageIds.forEach(i => {
+                modalEl.querySelector(`#edit-${i} i`)?.classList.add("d-none");
+            });
+            selectedBackdrop = board.backdrop; // giữ lại backdrop cũ
+
+            // tick màu
+            colorIds.forEach(i => {
+                modalEl.querySelector(`#edit-${i} i`)?.classList.add("d-none");
+            });
             el.querySelector("i")?.classList.remove("d-none");
+
             selectedColor = colorObject[id];
         };
     });
 
-    const validEl = modalEl.querySelector("#edit-board-title-valid");
-    // Lưu chỉnh sửa
-    validEl.innerText = '';
+    // 5) Lưu chỉnh sửa
     saveBtn.onclick = () => {
         const newTitle = titleInput.value.trim();
+        const validEl  = modalEl.querySelector("#edit-board-title-valid");
 
         if (!newTitle) {
             validEl.style.color = "red";
             validEl.innerText = "👋 Please provide a valid board title.";
             return;
-            } else {
-                validEl.style.color = "transparent"; // hoặc "inherit"
-            }
+        }
+        validEl.style.color = "transparent";
 
-            board.title = newTitle;
-            board.backdrop = selectedBackdrop;
-            board.color = selectedColor;
+        // Cập nhật dữ liệu
+        board.title    = newTitle;
+        board.backdrop = selectedColor || selectedBackdrop; // ✅ backdrop lưu màu nếu có
+        board.color    = selectedColor;
 
-            localStorage.setItem("data", JSON.stringify(data));
-
-            const modal = bootstrap.Modal.getInstance(modalEl);
-            modal.hide();
-            renderDashBoards(data, remembered);
+        localStorage.setItem("data", JSON.stringify(data));
+        bootstrap.Modal.getInstance(modalEl).hide();
+        renderDashBoards(data, remembered);
     };
 }
+
 
 function setupBoardNavigation() {
     const allSection = document.querySelectorAll(".workspaces");
