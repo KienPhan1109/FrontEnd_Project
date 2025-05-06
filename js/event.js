@@ -105,7 +105,7 @@ document.addEventListener("DOMContentLoaded", () => {
     renderYourBoards(currentUser);
     renderYourBoards2(currentUser);
     renderBoardLists(board);
-    setupBoardHeader(board);
+    boardHeader(board);
 });
 
 // Hàm hiển thị Board trên sidebar
@@ -572,7 +572,7 @@ function updateBoardData(board) {
 }
 
 // Hàm hiển thị header của Board
-function setupBoardHeader(board) {
+function boardHeader(board) {
     const boardTitle = document.querySelector(".event-text");
     const starIcon = document.querySelector(".event-star-icon i");
     const main = document.querySelector(".event-title");
