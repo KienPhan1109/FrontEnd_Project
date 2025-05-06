@@ -1,16 +1,13 @@
+// Biến Global
+const remembered = JSON.parse(localStorage.getItem("rememberUser")) || JSON.parse(sessionStorage.getItem("sessionUser")); // Truy xuất người dùng
+const data = JSON.parse(localStorage.getItem("data")) || { users: [] }; // Lấy toàn bộ dữ liệu
+
 document.addEventListener("DOMContentLoaded", () => {
-    const remembered = JSON.parse(localStorage.getItem("rememberUser"));  // Dữ liệu local nếu tích vào ghi nhớ
-    const sessionUser = JSON.parse(sessionStorage.getItem("sessionUser")); // Dữ liệu session nếu không tích vào ghi nhớ
-
-    const currentLogin = remembered || sessionUser;
-
     // Nếu chưa đăng nhập tự động chuyển trang
-    if (!currentLogin) {
+    if (!remembered) {
         location.href = "./auth/sign-in.html";
         return;
     }
-
-    const data = JSON.parse(localStorage.getItem("data")) || { users: [] };
 
     // Đăng xuất
     const logout = () => {
@@ -19,17 +16,17 @@ document.addEventListener("DOMContentLoaded", () => {
         location.href = "./auth/sign-in.html";
     };
 
+    // Nút đăng xuất
     document.getElementById("sign-out-btn").addEventListener("click", logout);
     document.getElementById("sign-out-btn2").addEventListener("click", logout);
 
-    setupBoardNavigation();
-    setupCreateBoardModal();
+    dashBoardNavigation();
+    createDashBoard();
     // Hiển thị board
-    renderDashBoards(data, currentLogin);
-
+    renderDashBoards(data, remembered);
 });
 
-
+// Hàm hiển thị DashBoards
 function renderDashBoards(data, remembered) {
     const normalContainer = document.getElementById("board-container"); // Boards bình thường
     const starredContainer = document.getElementById("starred-container"); // Boards yêu thích
@@ -38,6 +35,7 @@ function renderDashBoards(data, remembered) {
     const currentUser = data.users.find(user => user.email === remembered.email); // Lấy ra user đang đăng nhập hiện tại
     const boards = currentUser.boards; // Lấy ra board của user đang đăng nhập
 
+    // Xóa các thông tin cũ
     normalContainer.innerHTML = "";
     starredContainer.innerHTML = "";
     closedContainer.innerHTML = "";
@@ -46,14 +44,15 @@ function renderDashBoards(data, remembered) {
         const boardCard = document.createElement("div");
         boardCard.className = "card text-bg-dark";
 
+        // Hiển thị board bị đóng
         if (board.is_closed) {
             boardCard.innerHTML = `
                 <img src="${board.backdrop}" class="card-img" alt="">
                 <div class="card-img-overlay d-flex flex-column justify-content-between">
                     <h5 class="card-title">${board.title}</h5>
                     <div class="d-flex gap-2 action-buttons">
-                        <button class="btn btn-primary btn-sm undo">Undo</button>
-                        <button class="btn btn-danger btn-sm delete-permanent">Delete</button>
+                        <button class="btn btn-primary btn-sm undo"><i class="fa-solid fa-rotate-right"></i></button>
+                        <button class="btn btn-danger btn-sm delete-permanent"><i class="fa-solid fa-trash"></i></button>
                     </div>
                 </div>
             `;
@@ -67,6 +66,7 @@ function renderDashBoards(data, remembered) {
 
             // Xóa hoàn toàn
             boardCard.querySelector(".delete-permanent").addEventListener("click", (e) => {
+                // Lấy modal xác nhận xóa
                 const confirmBtn = document.querySelector("#exampleModalDelete .btn-save");
                 confirmBtn.onclick = () => {
                     const index = currentUser.boards.findIndex(b => b.id === board.id);
@@ -78,7 +78,7 @@ function renderDashBoards(data, remembered) {
                     modal.hide();
                 };
             
-                // Hiển thị modal (chuyển modal về đúng vị trí sử dụng)
+                // Mở modal sau để đảm bảo sự kiện onclick đã được gán
                 const modal = new bootstrap.Modal(document.getElementById("exampleModalDelete"));
                 modal.show();
             });
@@ -91,13 +91,13 @@ function renderDashBoards(data, remembered) {
                     <div class="card-img-overlay" style="background: ${board.backdrop}">
                         <h5 class="card-title">${board.title}</h5>
                         <div class="action-buttons d-flex flex-column gap-1 mt-2">
-                            <button type="button" class="edit btn btn-modal" data-bs-toggle="modal" data-bs-target="#exampleModalEdit" data-id="${board.id}">
+                            <button type="button" class="edit btn btn-modal" data-bs-toggle="modal" data-bs-target="#modalEditDashBoards" data-id="${board.id}">
                                 <i class="fa-regular fa-pen"></i> Edit this board
                             </button>
                             <button type="button" class="delete btn btn-modal">
                                 <i class="fa-solid fa-trash"></i>
                             </button>
-                            <button type="button" class="star btn star-btn" data-id="${board.id}">
+                            <button type="button" class="star btn star-btn">
                                 <i class="fa-star ${board.is_starred ? 'fa-solid text-warning' : 'fa-regular text-light'}"></i>
                             </button>
                         </div>
@@ -110,32 +110,35 @@ function renderDashBoards(data, remembered) {
                     <div class="card-img-overlay">
                         <h5 class="card-title">${board.title}</h5>
                         <div class="action-buttons d-flex flex-column gap-1 mt-2">
-                            <button type="button" class="edit btn btn-modal" data-bs-toggle="modal" data-bs-target="#exampleModalEdit" data-id="${board.id}">
+                            <button type="button" class="edit btn btn-modal" data-bs-toggle="modal" data-bs-target="#modalEditDashBoards" data-id="${board.id}">
                                 <i class="fa-regular fa-pen"></i> Edit this board
                             </button>
                             <button type="button" class="delete btn btn-modal">
                                 <i class="fa-solid fa-trash"></i>
                             </button>
-                            <button type="button" class="star btn star-btn" data-id="${board.id}">
+                            <button type="button" class="star btn star-btn">
                                 <i class="fa-star ${board.is_starred ? 'fa-solid text-warning' : 'fa-regular text-light'}"></i>
                             </button>
                         </div>
                     </div>
                 `;
             }
+            const boardId = board.id; // Giữ lại id của board
+
             // Khí nhấn vào board sẽ lưu lại id và chuyển trang 
             boardCard.querySelector(".card-img-overlay").addEventListener("click", () => {
-                sessionStorage.setItem("selectedBoardId", board.id);
+                sessionStorage.setItem("selectedBoardId", boardId);
                 sessionStorage.setItem("selectedBackdrop", board.backdrop);
                 location.href = "./event.html";
             });
 
+            // Nút sửa
             boardCard.querySelector(".edit").addEventListener("click", (e) => {
                 e.stopPropagation();
-                editBoard(board.id); // ✅ Gọi hàm sửa khi nhấn
+                editDashBoard(boardId);
             });
 
-            // Nút xóa
+            // Nút đóng
             boardCard.querySelector(".delete").addEventListener("click", (e) => {
                 e.stopPropagation();
                 board.is_closed = true;
@@ -146,12 +149,17 @@ function renderDashBoards(data, remembered) {
             // Nút yêu thích
             boardCard.querySelector(".star-btn").addEventListener("click", (e) => {
                 e.stopPropagation();
-                const boardId = parseInt(e.currentTarget.dataset.id);
+        
+                // Tìm đúng user
                 const user = data.users.find(u => u.email === remembered.email);
+        
+                // Tìm đúng board theo id đã giữ sẵn
                 const board = user.boards.find(b => b.id === boardId);
-
+        
+                // Toggle trạng thái yêu thích
                 board.is_starred = !board.is_starred;
-
+        
+                // Lưu lại data và re-render
                 localStorage.setItem("data", JSON.stringify(data));
                 renderDashBoards(data, remembered);
             });
@@ -174,7 +182,6 @@ function renderDashBoards(data, remembered) {
         </button>
     `;
     normalContainer.appendChild(createCard);
-
 }
 
 // Màu và hình ảnh mặc định của hàm thêm và sửa
@@ -195,7 +202,101 @@ const imageObject = {
     img4: "../assets/images/board4.png"
 };
 
-function setupCreateBoardModal() {
+// Hảm sửa DashBoard
+function editDashBoard(boardId) {
+    const currentUser = data.users.find(u => u.email === remembered.email);
+    const board = currentUser.boards.find(b => b.id === boardId);
+
+    const modalEl = document.getElementById("modalEditDashBoards"); // Lấy modal edit
+    const titleInput = modalEl.querySelector("#edit-board-title"); // Lấy ô input
+    const saveBtn    = modalEl.querySelector(".btn-save"); // Lấy nút lưu
+
+    // Hiển thị title hiện tại
+    titleInput.value = board.title;
+
+    // Các ID hình và màu
+    const imageIds = Object.keys(imageObject);
+    const colorIds = Object.keys(colorObject);
+    
+    // Biến lưu backdrop hiện tại
+    let selectedBackdrop = board.backdrop;
+
+    // Reset hết tick
+    imageIds.forEach(id => {
+        modalEl.querySelector(`#edit-${id} i`)?.classList.add("d-none");
+    });
+    colorIds.forEach(id => {
+        modalEl.querySelector(`#edit-${id} i`)?.classList.add("d-none");
+    });
+
+    // Tick đúng theo backdrop hiện tại
+    const selImg = imageIds.find(id => imageObject[id] === board.backdrop);
+    const selCol = colorIds.find(id => colorObject[id] === board.backdrop);
+    if (selImg) modalEl.querySelector(`#edit-${selImg} i`)?.classList.remove("d-none");
+    if (selCol) modalEl.querySelector(`#edit-${selCol} i`)?.classList.remove("d-none");
+
+    // Bắt sự kiện chọn hình ảnh
+    imageIds.forEach(id => {
+        const el = modalEl.querySelector(`#edit-${id}`);
+        if (!el) return;
+        el.onclick = () => {
+            // reset màu
+            colorIds.forEach(i => {
+                modalEl.querySelector(`#edit-${i} i`)?.classList.add("d-none");
+            });
+            // tick ảnh
+            imageIds.forEach(i => {
+                modalEl.querySelector(`#edit-${i} i`)?.classList.add("d-none");
+            });
+            el.querySelector("i")?.classList.remove("d-none");
+
+            selectedBackdrop = imageObject[id];
+        };
+    });
+
+    // Bắt sự kiện chọn màu
+    colorIds.forEach(id => {
+        const el = modalEl.querySelector(`#edit-${id}`);
+        if (!el) return;
+        el.onclick = () => {
+            // reset ảnh
+            imageIds.forEach(i => {
+                modalEl.querySelector(`#edit-${i} i`)?.classList.add("d-none");
+            });
+            // tick màu
+            colorIds.forEach(i => {
+                modalEl.querySelector(`#edit-${i} i`)?.classList.add("d-none");
+            });
+            el.querySelector("i")?.classList.remove("d-none");
+
+            // Gán backdrop bằng màu đã chọn
+            selectedBackdrop = colorObject[id];
+        };
+    });
+
+    // Lưu chỉnh sửa
+    saveBtn.onclick = () => {
+        const newTitle = titleInput.value.trim();
+        const validEl  = modalEl.querySelector("#edit-board-title-valid");
+
+        if (!newTitle) {
+            validEl.style.color = "red";
+            validEl.innerText = "👋 Please provide a valid board title.";
+            return;
+        }
+        validEl.style.color = "transparent";
+
+        // Cập nhật dữ liệu
+        board.title    = newTitle;
+        board.backdrop = selectedBackdrop; // ✅ backdrop lưu màu nếu có
+
+        localStorage.setItem("data", JSON.stringify(data));
+        bootstrap.Modal.getInstance(modalEl).hide();
+        renderDashBoards(data, remembered);
+    };
+}
+
+function createDashBoard() {
     const imageIds = Object.keys(imageObject);
     const colorIds = Object.keys(colorObject);
 
@@ -204,7 +305,6 @@ function setupCreateBoardModal() {
     const createBtn = document.querySelector("#exampleModalCreate .btn-outline-primary");
 
     let selectedBackdrop = imageObject[imageIds[0]]; // mặc định là img1
-    let selectedColor = null;
 
     // Tick ảnh mặc định
     document.querySelector(`#${imageIds[0]} i`)?.classList.remove("d-none");
@@ -217,7 +317,6 @@ function setupCreateBoardModal() {
             colorIds.forEach(cid => {
                 document.querySelector(`#${cid} i`)?.classList.add("d-none");
             });
-            selectedColor = null;
 
             // Tick ảnh
             imageIds.forEach(imgId => {
@@ -236,14 +335,13 @@ function setupCreateBoardModal() {
             imageIds.forEach(imgId => {
                 document.querySelector(`#${imgId} i`)?.classList.add("d-none");
             });
-            selectedBackdrop = imageObject[imageIds[0]]; // fallback ảnh mặc định
 
             // Tick màu
             colorIds.forEach(cid => {
                 document.querySelector(`#${cid} i`)?.classList.add("d-none");
             });
             el.querySelector("i")?.classList.remove("d-none");
-            selectedColor = colorObject[id];
+            selectedBackdrop = colorObject[id];
         });
     });
 
@@ -265,7 +363,7 @@ function setupCreateBoardModal() {
         const newBoard = {
             id: Date.now(),
             title,
-            backdrop: selectedColor || selectedBackdrop, // Dùng backdrop là ảnh hoặc màu
+            backdrop: selectedBackdrop,
             is_starred: false,
             is_closed: false,
             created_at: new Date().toISOString(),
@@ -284,109 +382,7 @@ function setupCreateBoardModal() {
     
 }
 
-function editBoard(boardId) {
-    const remembered = JSON.parse(localStorage.getItem("rememberUser")) || JSON.parse(sessionStorage.getItem("sessionUser"));
-    const data = JSON.parse(localStorage.getItem("data")) || { users: [] };
-    const currentUser = data.users.find(u => u.email === remembered.email);
-    const board = currentUser.boards.find(b => b.id === boardId);
-    if (!board) return;
-
-    const modalEl = document.getElementById("exampleModalEdit");
-    const titleInput = modalEl.querySelector("#edit-board-title");
-    const saveBtn    = modalEl.querySelector(".btn-save");
-
-    // Hiển thị title hiện tại
-    titleInput.value = board.title;
-
-    // Các ID hình và màu
-    const imageIds = Object.keys(imageObject);   // ["img1","img2",...]
-    const colorIds = Object.keys(colorObject);   // ["color1","color2",...]
-
-    // Biến lưu state
-    let selectedBackdrop = board.backdrop;
-    let selectedColor    = board.color;
-
-    // 1) Reset hết tick
-    imageIds.forEach(id => {
-        modalEl.querySelector(`#edit-${id} i`)?.classList.add("d-none");
-    });
-    colorIds.forEach(id => {
-        modalEl.querySelector(`#edit-${id} i`)?.classList.add("d-none");
-    });
-
-    // 2) Tick lại theo dữ liệu hiện tại
-    const selImg = imageIds.find(id => imageObject[id] === board.backdrop);
-    const selCol = colorIds.find(id => colorObject[id] === board.color);
-    if (selImg) modalEl.querySelector(`#edit-${selImg} i`)?.classList.remove("d-none");
-    if (selCol) modalEl.querySelector(`#edit-${selCol} i`)?.classList.remove("d-none");
-
-    // 3) Bắt sự kiện chọn hình ảnh
-    imageIds.forEach(id => {
-        const el = modalEl.querySelector(`#edit-${id}`);
-        if (!el) return;
-        el.onclick = () => {
-            // reset màu
-            colorIds.forEach(i => {
-                modalEl.querySelector(`#edit-${i} i`)?.classList.add("d-none");
-            });
-            selectedColor = null;
-
-            // tick ảnh
-            imageIds.forEach(i => {
-                modalEl.querySelector(`#edit-${i} i`)?.classList.add("d-none");
-            });
-            el.querySelector("i")?.classList.remove("d-none");
-
-            selectedBackdrop = imageObject[id];
-        };
-    });
-
-    // 4) Bắt sự kiện chọn màu
-    colorIds.forEach(id => {
-        const el = modalEl.querySelector(`#edit-${id}`);
-        if (!el) return;
-        el.onclick = () => {
-            // reset ảnh
-            imageIds.forEach(i => {
-                modalEl.querySelector(`#edit-${i} i`)?.classList.add("d-none");
-            });
-            selectedBackdrop = board.backdrop; // giữ lại backdrop cũ
-
-            // tick màu
-            colorIds.forEach(i => {
-                modalEl.querySelector(`#edit-${i} i`)?.classList.add("d-none");
-            });
-            el.querySelector("i")?.classList.remove("d-none");
-
-            selectedColor = colorObject[id];
-        };
-    });
-
-    // 5) Lưu chỉnh sửa
-    saveBtn.onclick = () => {
-        const newTitle = titleInput.value.trim();
-        const validEl  = modalEl.querySelector("#edit-board-title-valid");
-
-        if (!newTitle) {
-            validEl.style.color = "red";
-            validEl.innerText = "👋 Please provide a valid board title.";
-            return;
-        }
-        validEl.style.color = "transparent";
-
-        // Cập nhật dữ liệu
-        board.title    = newTitle;
-        board.backdrop = selectedColor || selectedBackdrop; // ✅ backdrop lưu màu nếu có
-        board.color    = selectedColor;
-
-        localStorage.setItem("data", JSON.stringify(data));
-        bootstrap.Modal.getInstance(modalEl).hide();
-        renderDashBoards(data, remembered);
-    };
-}
-
-
-function setupBoardNavigation() {
+function dashBoardNavigation() {
     const allSection = document.querySelectorAll(".workspaces");
     const sidebarAll = document.getElementById("sidebar-all");
     const sidebarStarred = document.getElementById("sidebar-starred");

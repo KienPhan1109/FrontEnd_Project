@@ -115,9 +115,80 @@
                         </div>
                     </div>
                     <div>
-                        <div class="event-filter">
+                        <div class="event-filter" data-bs-toggle="offcanvas" data-bs-target="#offcanvasFilter" aria-controls="offcanvasFilter" aria-label="Toggle navigation">
                             <i class="fa-solid fa-bars-filter"></i>
                             Filters
+                        </div>
+                        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasFilter" aria-labelledby="offcanvasNavbarLabel">
+                            <div class="offcanvas-header">
+                                <div class="fs-4 m-auto">Filter</div>
+                                <button type="button" class="btn-close ms-0 ps-0" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                            </div>
+                            <div class="offcanvas-body">
+                                <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                                    <li class="nav-item">
+                                        Keyword
+                                    </li>
+                                    <li class="nav-item">
+                                        <input type="text" class="form-control" id="filterTask">
+                                    </li>
+                                    <li class="nav-item text-secondary">
+                                        Search cards,
+                                    </li>
+                                    <li class="nav-item mt-2 mb-2">
+                                        Card status
+                                    </li>
+                                    <div class="form-check d-flex align-items-center gap-2 mb-2">
+                                        <input class="form-check-input" type="checkbox" id="checkComplete">
+                                        <label class="form-check-label ms-2" for="checkDefault">Marked as complete</label>
+                                    </div>
+                                    <div class="form-check d-flex align-items-center gap-2 mb-2">
+                                        <input class="form-check-input" type="checkbox" id="checkIncomplete">
+                                        <label class="form-check-label ms-2" for="checkDefault">Not marked as complete</label>
+                                    </div>
+                                    <li class="nav-item mt-2 mb-2">
+                                        Card status
+                                    </li>
+                                    <div class="form-check d-flex align-items-center gap-2 mb-2">
+                                        <input class="form-check-input" type="checkbox" id="checkDefault">
+                                        <label class="form-check-label ms-2" for="checkDefault"><i class="fa-solid fa-calendar-days bg-info p-2 rounded-circle text-light"></i>&nbsp; No dates</label>
+                                    </div>
+                                    <div class="form-check d-flex align-items-center gap-2 mb-2">
+                                        <input class="form-check-input" type="checkbox" id="checkDefault">
+                                        <label class="form-check-label ms-2" for="checkDefault"><i class="fa-solid fa-clock bg-danger p-2 rounded-circle text-light"></i>&nbsp; Overdue</label>
+                                    </div>
+                                    <div class="form-check d-flex align-items-center gap-2 mb-2">
+                                        <input class="form-check-input" type="checkbox" id="checkDefault">
+                                        <label class="form-check-label ms-2" for="checkDefault"><i class="fa-solid fa-clock bg-warning p-2 rounded-circle text-light"></i>&nbsp; Due in the next day</label>
+                                    </div>
+                                    <li class="nav-item mt-2 mb-2">
+                                        Label
+                                    </li>
+                                    <div class="form-check d-flex align-items-center gap-2 mb-2">
+                                        <input class="form-check-input" type="checkbox" id="checkDefault">
+                                        <label class="form-check-label ms-2" for="checkDefault"><i class="fa-solid fa-pen-to-square bg-secondary p-2 rounded-circle text-light"></i>&nbsp; No labels</label>
+                                    </div>
+                                    <div class="form-check d-flex align-items-center gap-2 mb-2">
+                                        <input class="form-check-input" type="checkbox" id="checkDefault">
+                                        <div class="ms-2 bg-success rounded-1" style="width: 100vw; height: 25px;"></div>
+                                    </div>
+                                    <div class="form-check d-flex align-items-center gap-2 mb-2">
+                                        <input class="form-check-input" type="checkbox" id="checkDefault">
+                                        <div class="ms-2 bg-warning rounded-1" style="width: 100vw; height: 25px;"></div>
+                                    </div>
+                                    <div class="form-check d-flex align-items-center gap-2 mb-2">
+                                        <input class="form-check-input" type="checkbox" id="checkDefault">
+                                        <div class="ms-2 bg-danger rounded-1" style="width: 100vw; height: 25px;"></div>
+                                    </div>
+                                    <div class="form-check d-flex align-items-center gap-2 mb-2">
+                                        <input class="form-check-input" type="checkbox" id="checkDefault">
+                                        <label class="form-check-label ms-2 d-flex justify-content-between align-items-center w-100" for="checkDefault">
+                                            <span>Select labels</span>
+                                            <span><i class="fa-solid fa-chevron-down me-2"></i></span>
+                                        </label>
+                                    </div>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -195,7 +266,7 @@
                         </div>
                         <div class="d-flex flex-column gap-2" style="width: 200px;">
                             <button class="btn btn-light text-start"><i class="fa-regular fa-tag"></i> &nbsp; Labels</button>
-                            <button class="btn btn-light text-start"><i class="fa-regular fa-clock"></i> &nbsp; Dates</button>
+                            <button class="btn btn-light text-start dates-open-modal" data-bs-toggle="modal" data-bs-target="#datePickerModal"><i class="fa-regular fa-clock"></i> &nbsp; Dates</button>
                             <button class="btn btn-danger text-start"><i class="fa-regular fa-trash-can"></i> &nbsp; Delete</button>
                         </div>
                     </div>
@@ -238,6 +309,7 @@
             </div>
         </div>
     </div>      
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
     <script src="../js/event.js"></script>
 </body>

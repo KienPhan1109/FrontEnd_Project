@@ -4,7 +4,7 @@ let data = {
             id: 1,
             username: "kienphan",
             email: "phantrungkien2006@gmail.com",
-            password: "11092006",
+            password: "Kien@1109AA.",
             created_at: "2025-02-28T12:00:00Z",
             boards: [
                 {

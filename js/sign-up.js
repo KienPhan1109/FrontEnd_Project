@@ -1,13 +1,92 @@
 const signUpBtn = document.getElementById("sign-up-btn");
 const alertBox = document.getElementById("alert-box");
 
-// Nếu đã ghi nhớ đăng nhập thì chuyển sang dashboard luôn
+// Lấy người dùng từ Storage
 const remembered = JSON.parse(localStorage.getItem("rememberUser"));
 const sessionUser = JSON.parse(sessionStorage.getItem("sessionUser"));
 
-if (remembered || sessionUser) {
-    location.href = "../dashboard.html";
-}
+// Nếu đã có người dùng đang đăng nhập thì chuyển sang dashboard
+if (remembered || sessionUser) location.href = "../dashboard.html";
+
+// Xử lý sự kiện nút đăng ký
+signUpBtn.addEventListener("click", () => {
+    // Lấy toàn bộ dữ liệu từ localStorage
+    let data = JSON.parse(localStorage.getItem("data")) || {users: []};
+    let users = data.users; // Truy xuất người dùng từ data
+
+    // Lấy name, email, password từ html
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value.trim();
+
+    // Xóa các thông báo lỗi cũ
+    alertBox.innerHTML = "";
+
+    let errors = []; // Mảng chứa các lỗi để hiển thị nhiều lỗi cùng lúc
+
+    // Sử dụng biểu thức chính quy để kiểm tra email
+    const isValidEmail = (email) => {
+        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return regex.test(email);
+    };
+
+    if (!email) {
+        errors.push("Email không được để trống");
+    } else if (!isValidEmail(email)) {
+        errors.push("Email không đúng định dạng");
+    } else if (users.some(user => user.email === email)) {
+        errors.push("Email đã tồn tại");
+    }
+
+    if (!name) {
+        errors.push("Họ và tên không được để trống");
+    }
+
+    if (!password) {
+        errors.push("Mật khẩu không được để trống");
+    } else if (password.length < 8) {
+        errors.push("Mật khẩu phải có ít nhất 8 ký tự");
+    } else if (!/[A-Z]/.test(password)) {
+        errors.push("Mật khẩu phải chứa ít nhất 1 chữ hoa");
+    } else if (!/[a-z]/.test(password)) {
+        errors.push("Mật khẩu phải chứa ít nhất 1 chữ thường");
+    } else if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+        errors.push("Mật khẩu phải chứa ít nhất 1 ký tự đặc biệt");
+    }
+    
+    if (errors.length > 0) {
+        showError(errors.join("<br>"));
+        return;
+    }
+    
+    // Tính ID mới tăng dần
+    let newId = 1;
+    if (users.length > 0) {
+        const lastUser = users[users.length - 1];
+        newId = lastUser.id + 1;
+    }
+
+    // Tạo user mới và thêm vào danh sách users
+    const newUser = {
+        id: newId,
+        username: name,
+        email,
+        password,
+        created_at: new Date().toISOString(),
+        boards: []
+    };
+
+    users.push(newUser);
+    data.users = users;
+
+    // Lưu lại toàn bộ object data
+    localStorage.setItem("data", JSON.stringify(data));
+
+    showSuccess("Đăng ký thành công");
+    setTimeout(() => {
+        location.href = "sign-in.html";
+    }, 1000); // Chuyển hướng sau 1 giây
+});
 
 // Hàm thông báo lỗi
 function showError(message) {
@@ -46,74 +125,3 @@ function showSuccess(message) {
         </div>
     `;
 }
-
-signUpBtn.addEventListener("click", () => {
-    // Lấy toàn bộ dữ liệu từ localStorage
-    let data = JSON.parse(localStorage.getItem("data")) || {users: []};
-    let users = data.users; // Truy xuất người dùng từ data
-
-    const name = document.getElementById("name").value.trim();
-    const email = document.getElementById("email").value.trim();
-    const password = document.getElementById("password").value.trim();
-
-    let errors = []; // Mảng chứa các lỗi để hiển thị nhiều lỗi cùng lúc
-
-    alertBox.innerHTML = "";
-
-    // Sử dụng biểu thức chính quy để kiểm tra email
-    const isValidEmail = (email) => {
-        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return regex.test(email);
-    };
-
-    if (!email) {
-        errors.push("Email không được để trống");
-    } else if (!isValidEmail(email)) {
-        errors.push("Email không đúng định dạng");
-    } else if (users.some(user => user.email === email)) {
-        errors.push("Email đã tồn tại");
-    }
-
-    if (!name) {
-        errors.push("Họ và tên không được để trống");
-    }
-
-    if (!password) {
-        errors.push("Mật khẩu không được để trống");
-    } else if (password.length < 8) {
-        errors.push("Mật khẩu phải có ít nhất 8 ký tự");
-    }
-
-    if (errors.length > 0) {
-        showError(errors.join("<br>"));
-        return;
-    }
-    
-    // Tính ID mới tăng dần
-    let newId = 1;
-    if (users.length > 0) {
-        const lastUser = users[users.length - 1];
-        newId = lastUser.id + 1;
-    }
-
-    // Tạo user mới và thêm vào danh sách users
-    const newUser = {
-        id: newId,
-        username: name,
-        email,
-        password,
-        created_at: new Date().toISOString(),
-        boards: []
-    };
-
-    users.push(newUser);
-    data.users = users;
-
-    // Lưu lại toàn bộ object data
-    localStorage.setItem("data", JSON.stringify(data));
-
-    showSuccess("Đăng ký thành công");
-    setTimeout(() => {
-        location.href = "sign-in.html";
-    }, 1000); // Chuyển hướng sau 1 giây
-});

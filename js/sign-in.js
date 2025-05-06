@@ -1,13 +1,58 @@
 const signInBtn = document.getElementById("sign-in-btn");
 const alertBox = document.getElementById("alert-box");
 
-// Nếu đã ghi nhớ đăng nhập thì chuyển sang dashboard luôn
+// Lấy người dùng từ Storage
 const remembered = JSON.parse(localStorage.getItem("rememberUser"));
 const sessionUser = JSON.parse(sessionStorage.getItem("sessionUser"));
 
-if (remembered || sessionUser) {
-    location.href = "../dashboard.html";
-}
+// Nếu đã có người dùng đang đăng nhập thì chuyển sang dashboard
+if (remembered || sessionUser) location.href = "../dashboard.html";
+
+// Xử lý sử kiện nút đăng nhập
+signInBtn.addEventListener("click", () => {
+    // Lấy toàn bộ dữ liệu từ localStorage
+    const data = JSON.parse(localStorage.getItem("data")) || {users: []};
+    const users = data.users; // Truy xuất người dùng từ data
+
+    // Lấy email, password, rememberMe từ html
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value.trim();
+    const rememberMe = document.getElementById("rememberMe").checked;
+
+    // Xóa các thông báo lỗi cũ
+    alertBox.innerHTML = "";
+
+    let errors = []; // Mảng chứa các lỗi để hiển thị nhiều lỗi cùng lúc
+
+    if (!email) errors.push("Email không được để trống");
+    if (!password) errors.push("Mật khẩu không được để trống");
+
+    if (errors.length > 0) {
+        showError(errors.join("<br>"));
+        return;
+    }
+
+    // Kiểm tra có người dùng trùng khớp không
+    const findUser = users.find(user => user.email === email && user.password === password);
+
+    if (findUser) {
+         // Ghi nhớ đăng nhập
+        if (rememberMe) {
+            localStorage.setItem("rememberUser", JSON.stringify({ email, password }));
+            sessionStorage.removeItem("sessionUser"); // xóa nếu có session tạm
+        } else {
+            sessionStorage.setItem("sessionUser", JSON.stringify({ email, password }));
+            localStorage.removeItem("rememberUser"); // xóa nếu từng ghi nhớ
+        }
+
+        showSuccess("Đăng nhập thành công");
+        setTimeout(() => {
+            location.href = "../dashboard.html";
+        }, 1000);
+    } else {
+        showError("Email hoặc mật khẩu không hợp lệ");
+    }
+});
 
 // Hàm thông báo lỗi
 function showError(message) {
@@ -46,46 +91,3 @@ function showSuccess(message) {
         </div>
     `;
 }
-
-signInBtn.addEventListener("click", () => {
-    const email = document.getElementById("email").value.trim();
-    const password = document.getElementById("password").value.trim();
-    const rememberMe = document.getElementById("rememberMe").checked;
-
-    alertBox.innerHTML = "";
-
-    let errors = []; // Mảng chứa các lỗi để hiển thị nhiều lỗi cùng lúc
-
-    if (!email) errors.push("Email không được để trống");
-    if (!password) errors.push("Mật khẩu không được để trống");
-
-    if (errors.length > 0) {
-        showError(errors.join("<br>"));
-        return;
-    }
-    
-     // Lấy data từ localStorage
-    const data = JSON.parse(localStorage.getItem("data")) || { users: [] };
-    const users = data.users;
-
-    // Kiểm tra có người dùng trùng khớp không
-    const findUser = users.find(user => user.email === email && user.password === password);
-
-    if (findUser) {
-         // Ghi nhớ đăng nhập
-        if (rememberMe) {
-            localStorage.setItem("rememberUser", JSON.stringify({ email, password }));
-            sessionStorage.removeItem("sessionUser"); // xóa nếu có session tạm
-        } else {
-            sessionStorage.setItem("sessionUser", JSON.stringify({ email, password }));
-            localStorage.removeItem("rememberUser"); // xóa nếu từng ghi nhớ
-        }
-
-        showSuccess("Đăng nhập thành công");
-        setTimeout(() => {
-            location.href = "../dashboard.html";
-        }, 1000);
-    } else {
-        showError("Email hoặc mật khẩu không hợp lệ");
-    }
-});
