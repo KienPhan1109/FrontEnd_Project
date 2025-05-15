@@ -40,6 +40,12 @@ body.auth {
     margin-bottom: 24px;
 }
 
+.auth .title img:hover {
+    transform: scale(1.1);
+    transition: all 0.5s;
+    cursor: pointer;
+}
+
 .auth .text {
     font-size: 26.58px;
     line-height: 33.6px;
@@ -73,10 +79,24 @@ body.auth {
     border-radius: 0px 0px 6px 6px;
 }
 
+.auth form #password:hover,
+.auth form #name:hover,
+.auth form #email:hover {
+    background-color: #e3e3e3;
+    transition: all 0.5s;
+    cursor: pointer;
+}
+
 .auth .form-check {
     display: flex;
     gap: 8px;
     margin-bottom: 16px;
+}
+
+.auth .form-check input:hover {
+    background-color: #e3e3e3;
+    transition: all 0.5s;
+    transform: scale(1.2);
 }
 
 .auth p {
@@ -88,6 +108,12 @@ body.auth {
     margin-bottom: 48px;
 }
 
+.auth .copy-right:hover {
+    opacity: 1 !important;
+    cursor: pointer;
+    transition: all 0.5s;
+    color: #ff0000;
+}
 /* Phần css của dashboard và event*/
 body.dashboard {
     background-color: #ffffff;
@@ -132,6 +158,12 @@ body.dashboard {
     box-shadow: inset -1px 0px 0px rgba(0, 0, 0, 0.25);
 }
 
+.dashboard .header .logo img:hover {
+    transform: scale(1.1);
+    transition: all 0.5s;
+    cursor: pointer;
+}
+
 .dashboard img {
     width: 80px;
     height: 16.35px;
@@ -171,6 +203,11 @@ body.dashboard {
 
 .dashboard .items-boards .link {
     gap: 8px;
+}
+
+.dashboard .link:hover {
+    background-color: #e9e9e9;
+    transition: all 0.2s;
 }
 
 .dashboard .items-boards {
@@ -215,6 +252,21 @@ body.dashboard {
     border-bottom: 1px solid rgba(222, 226, 230, 1);
 }
 
+.dashboard .all div:hover{
+    color: #0077ff;
+    transition: color 0.5s;
+}
+
+.dashboard .star div:hover{
+    color: rgb(195, 230, 0);
+    transition: color 0.5s;
+}
+
+.dashboard .close div:hover{
+    color: rgb(255, 0, 0);
+    transition: color 0.5s;
+}
+
 .dashboard .btn-group .btn {
     border: 1px solid rgba(108, 117, 125, 1);
     width: 55.26px;
@@ -225,6 +277,7 @@ body.dashboard {
     font-weight: 400;
     font-size: 14px;
     line-height: 21px;
+    transition: background-color 0.5s;
 }
 
 .dashboard .dropdown .btn {
@@ -237,6 +290,7 @@ body.dashboard {
     font-weight: 400;
     font-size: 14px;
     line-height: 21px;
+    transition: background-color 0.5s;
 }
 
 .dashboard .btn-group .btn:hover {
@@ -251,6 +305,7 @@ body.dashboard {
 
 .dashboard .btn-modal:hover {
     background-color: #212529;
+    transition: background-color 0.5s;
     color: white;
 }
 
@@ -270,6 +325,7 @@ body.dashboard {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.5s ease;
 }
 
 .dashboard .action-buttons {
@@ -344,8 +400,9 @@ body.dashboard {
 }
 
 .dashboard .card:hover {
-    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.5);
+    box-shadow: 0px 0px 10px 4px rgba(0, 0, 0, 0.5);
     border-radius: 5px;
+    transform: scale(1.03);
 }
 
 .dashboard .starred-text {
@@ -463,6 +520,11 @@ body.dashboard {
     font-weight: 400;
 }
 
+.dashboard .board-title input:hover {
+    transition: all 0.2s;
+    box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.1);
+}
+
 .dashboard .board-title form {
     width: 100%;
 }
@@ -525,7 +587,8 @@ body.dashboard {
 }
 
 .dashboard .position-relative:hover {
-    box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.5);
+    transition: all 0.2s;
+    box-shadow: 0px 0px 10px 4px rgba(0, 0, 0, 0.5);
     border-radius: 5px;
 }
 
@@ -535,41 +598,53 @@ body.dashboard {
 }
 
 .dashboard .box-color:hover#color1{
-    box-shadow: 0px 5px 10px rgba(255, 177, 0, 1);
+    transition: all 0.2s;
+    box-shadow: 0px 0px 10px 4px rgba(255, 177, 0, 1);
 }
 .dashboard .box-color:hover#color2{
-    box-shadow: 0px 5px 10px rgba(38, 9, 255, 1);
+    transition: all 0.2s;
+    box-shadow: 0px 0px 10px 4px rgba(38, 9, 255, 1);
 }
 .dashboard .box-color:hover#color3{
-    box-shadow: 0px 5px 10px rgba(0, 255, 47, 1);
+    transition: all 0.2s;
+    box-shadow: 0px 0px 10px 4px rgba(0, 255, 47, 1);
 }
 .dashboard .box-color:hover#color4{
-    box-shadow: 0px 5px 10px rgba(0, 255, 229, 1);
+    transition: all 0.2s;
+    box-shadow: 0px 0px 10px 4px rgba(0, 255, 229, 1);
 }
 .dashboard .box-color:hover#color5{
-    box-shadow: 0px 5px 10px rgba(255, 162, 0, 1);
+    transition: all 0.2s;
+    box-shadow: 0px 0px 10px 4px rgba(255, 162, 0, 1);
 }
 .dashboard .box-color:hover#color6{
-    box-shadow: 0px 5px 10px rgba(255, 0, 234, 1);
+    transition: all 0.2s;
+    box-shadow: 0px 0px 10px 4px rgba(255, 0, 234, 1);
 }
 
 .dashboard .box-color:hover#edit-color1{
-    box-shadow: 0px 5px 10px rgba(255, 177, 0, 1);
+    transition: all 0.2s;
+    box-shadow: 0px 0px 10px 4px rgba(255, 177, 0, 1);
 }
 .dashboard .box-color:hover#edit-color2{
-    box-shadow: 0px 5px 10px rgba(38, 9, 255, 1);
+    transition: all 0.2s;
+    box-shadow: 0px 0px 10px 4px rgba(38, 9, 255, 1);
 }
 .dashboard .box-color:hover#edit-color3{
-    box-shadow: 0px 5px 10px rgba(0, 255, 47, 1);
+    transition: all 0.2s;
+    box-shadow: 0px 0px 10px 4px rgba(0, 255, 47, 1);
 }
 .dashboard .box-color:hover#edit-color4{
-    box-shadow: 0px 5px 10px rgba(0, 255, 229, 1);
+    transition: all 0.2s;
+    box-shadow: 0px 0px 10px 4px rgba(0, 255, 229, 1);
 }
 .dashboard .box-color:hover#edit-color5{
-    box-shadow: 0px 5px 10px rgba(255, 162, 0, 1);
+    transition: all 0.2s;
+    box-shadow: 0px 0px 10px 4px rgba(255, 162, 0, 1);
 }
 .dashboard .box-color:hover#edit-color6{
-    box-shadow: 0px 5px 10px rgba(255, 0, 234, 1);
+    transition: all 0.2s;
+    box-shadow: 0px 0px 10px 4px rgba(255, 0, 234, 1);
 }
 
 .dashboard .navbar-toggler-icon {
@@ -860,7 +935,8 @@ body.dashboard {
 }
 
 .card-todo:hover {
-    border: 4px solid rgb(206, 206, 206);
+    border: 3px solid rgba(13, 110, 253, 0.5);
+    transition: all 0.1s;
 }
 
 .move-task-open-modal {

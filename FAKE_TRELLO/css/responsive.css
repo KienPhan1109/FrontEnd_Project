@@ -18,6 +18,11 @@
     .dashboard .navbar-toggler {
         display: block !important;
     }
+
+    .dashboard .event-table,
+    .dashboard .event-close {
+        display: none;
+    }
 }
 
 @media (max-width: 545px) {

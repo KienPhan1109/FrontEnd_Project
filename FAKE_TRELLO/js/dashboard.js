@@ -5,7 +5,7 @@ const data = JSON.parse(localStorage.getItem("data")) || { users: [] }; // Lấy
 document.addEventListener("DOMContentLoaded", () => {
     // Nếu chưa đăng nhập tự động chuyển trang
     if (!remembered) {
-        location.href = "./auth/sign-in.html";
+        location .href = "./auth/sign-in.html";
         return;
     }
 
@@ -33,8 +33,9 @@ function renderDashBoards(data, remembered) {
     const closedContainer = document.getElementById("closed-container"); // Boards đã đóng
 
     const currentUser = data.users.find(user => user.email === remembered.email); // Lấy ra user đang đăng nhập hiện tại
+    
     const boards = currentUser.boards; // Lấy ra board của user đang đăng nhập
-
+    
     // Xóa các thông tin cũ
     normalContainer.innerHTML = "";
     starredContainer.innerHTML = "";
@@ -194,7 +195,6 @@ const colorObject = {
     color6: "linear-gradient(to right, rgba(255, 0, 234, 1), rgba(250, 12, 0, 1))",
 };
 
-
 const imageObject = {
     img1: "../assets/images/board1.png",
     img2: "../assets/images/board2.png",
@@ -216,7 +216,7 @@ function editDashBoard(boardId) {
 
     // Các ID hình và màu
     const imageIds = Object.keys(imageObject);
-    const colorIds = Object.keys(colorObject);
+    const colorIds = Object.keys(colorObject);    
     
     // Biến lưu backdrop hiện tại
     let selectedBackdrop = board.backdrop;
@@ -231,7 +231,8 @@ function editDashBoard(boardId) {
 
     // Tick đúng theo backdrop hiện tại
     const selImg = imageIds.find(id => imageObject[id] === board.backdrop);
-    const selCol = colorIds.find(id => colorObject[id] === board.backdrop);
+    const selCol = colorIds.find(id => colorObject[id] === board.backdrop);    
+    
     if (selImg) modalEl.querySelector(`#edit-${selImg} i`)?.classList.remove("d-none");
     if (selCol) modalEl.querySelector(`#edit-${selCol} i`)?.classList.remove("d-none");
 

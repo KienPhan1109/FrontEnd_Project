@@ -1,5 +1,6 @@
 const signInBtn = document.getElementById("sign-in-btn");
 const alertBox = document.getElementById("alert-box");
+console.log("đâsdasd");
 
 // Lấy người dùng từ Storage
 const remembered = JSON.parse(localStorage.getItem("rememberUser"));

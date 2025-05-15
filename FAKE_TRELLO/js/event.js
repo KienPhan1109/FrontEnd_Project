@@ -167,10 +167,9 @@ function renderYourBoards2(currentUser) {
 function renderBoardLists(board) {
     const container = document.querySelector(".container-todo");
     container.innerHTML = "";
-
     board.lists.forEach((list, listIndex) => {
         const card = document.createElement("div");
-        card.className = "card-event";
+        card.className = "card-event test";
         card.innerHTML = `
             <div class="card-header d-flex align-items-center justify-content-between gap-2">
                 <div class="flex-grow-1">
@@ -178,7 +177,7 @@ function renderBoardLists(board) {
                         ${list.title}
                     </div>
                 </div>
-                <div class="delete-list-menu" data-list-index="${listIndex}" style="flex-shrink: 0;">
+                <div class="list-menu-icon" data-list-index="${listIndex}" style="flex-shrink: 0;">
                     <i class="fa-solid fa-ellipsis pointer"></i>
                 </div>
             </div>
@@ -195,6 +194,7 @@ function renderBoardLists(board) {
                             </div>
                         </div>
                     `).join("") }
+                    
             </div>
             <div class="card-footer d-flex align-items-center justify-content-between gap-2">
                 <div class="flex-grow-1">
@@ -216,7 +216,7 @@ function renderBoardLists(board) {
         `;
         container.appendChild(card);
     });
-
+    
     // Form thêm list
     const addListCard = document.createElement("div");
     addListCard.className = "card-event";
@@ -250,8 +250,9 @@ function renderBoardLists(board) {
     saveBtn.addEventListener("click", () => {
         const title = input.value.trim();
         if (!title) return showError("Tên danh sách không được để trống!");
-
+        
         board.lists.push({ title, tasks: [] });
+
         updateBoardData(board);
         showSuccess("Tạo danh sách thành công!");
 
@@ -438,6 +439,7 @@ function listEvents(board) {
         deleteConfirmBtn.hasDeleteConfirmEvent = true;
     }
 
+
     // Bắt sự kiện click vào icon dấu 3 chấm của task
     container.querySelectorAll(".task-menu-icon i").forEach((icon) => {
         icon.addEventListener("click", () => {
@@ -478,12 +480,7 @@ function listEvents(board) {
 
                     // Load list options
                     listSelect.innerHTML = board.lists
-                        .map(
-                            (l, idx) =>
-                                `<option value="${idx}" ${
-                                    idx == listIndex ? "selected" : ""
-                                }>${l.title}</option>`
-                        )
+                        .map((l, idx) => `<option value="${idx}" ${idx == listIndex ? "selected" : ""}>${l.title}</option>`)
                         .join("");
 
                     const loadPositions = (listIndex) => {
@@ -663,8 +660,8 @@ document.getElementById("confirmMoveTask").onclick = () => {
     );
     const position = parseInt(
         document.getElementById("moveTaskPositionSelect").value
-    );
-
+    );    
+    
     // Lấy task
     const task =
         board.lists[window.targetListIndex].tasks[window.targetTaskIndex];
